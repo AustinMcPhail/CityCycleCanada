@@ -2,6 +2,10 @@ Name: CityCycle Canada
 
 Developers: Austin, Valentyna, Thomas, Nicolas, and Kimberley
 
+App Front End: Nicolas, Valentyna   \
+                                      Thomas
+Node.JS Back End: Kemberley, Austin /
+
 Premise: An informative android application focused on assisting cyclists in finding bike paths, requesting new bike paths, and communicating with other cyclists. Users can post information about certain bike paths, and other users can upvote or downvote the posts in accordance to the posts accuracy.
     The app will be developed using a Node.js backend api, which a front end andorid appliction developed using Kotlin will use.
 
