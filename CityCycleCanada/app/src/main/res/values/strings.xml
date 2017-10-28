@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CityCycle Canada</string>
+    <string name="title_activity_bike_path">Bike Path Map</string>
+</resources>
