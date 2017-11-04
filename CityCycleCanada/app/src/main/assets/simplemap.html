@@ -19,7 +19,7 @@
       function initMap() {
         var uluru = {lat: 50.4452, lng: -104.6189};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
+          zoom: 17,
           center: uluru
         });
         var marker = new google.maps.Marker({
@@ -32,8 +32,8 @@
 
           //Bounds of regina
       var strictBounds = new google.maps.LatLngBounds(
-         new google.maps.LatLng(50.396924, -104.779328),
-         new google.maps.LatLng(50.520009, -104.492806)
+         new google.maps.LatLng(50.39659, -104.75566),
+         new google.maps.LatLng(50.51911, -104.50381)
    );
     map.addListener('dragend', function() {
      if (strictBounds.contains(map.getCenter())){
@@ -60,6 +60,13 @@
     console.log(x);
      map.setCenter(new google.maps.LatLng(y, x));
    });
+
+   //Min zoom level
+   var minZoomLevel = 14;
+   google.maps.event.addListener(map, 'zoom_changed', function() {
+     if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+   });
+
       }
     </script>
 <script async defer
