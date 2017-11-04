@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+       #map {
+        height: 100%;
+       }
+       html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+<h3>My Google Maps Demo</h3>
+<div id="map"></div>
+<script>
+      function initMap() {
+        var uluru = {lat: 50.4452, lng: -104.6189};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+
+        var bikeLayer = new google.maps.BicyclingLayer();
+        bikeLayer.setMap(map);
+
+          //Bounds of regina
+      var strictBounds = new google.maps.LatLngBounds(
+         new google.maps.LatLng(50.396924, -104.779328),
+         new google.maps.LatLng(50.520009, -104.492806)
+   );
+    map.addListener('dragend', function() {
+     if (strictBounds.contains(map.getCenter())){
+        console.log(strictBounds)
+        console.log("in bounds")
+        return;
+     }
+
+     // We're out of bounds - Move the map back within the bounds
+    console.log("Out of Bounds")
+     var c = map.getCenter(),
+         x = c.lng(),
+         y = c.lat(),
+         maxX = strictBounds.getNorthEast().lng(),
+         maxY = strictBounds.getNorthEast().lat(),
+         minX = strictBounds.getSouthWest().lng(),
+         minY = strictBounds.getSouthWest().lat();
+
+     if (x < minX) x = minX;
+     if (x > maxX) x = maxX;
+     if (y < minY) y = minY;
+     if (y > maxY) y = maxY;
+    console.log(y);
+    console.log(x);
+     map.setCenter(new google.maps.LatLng(y, x));
+   });
+      }
+    </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_uOD4p9uxc4gbb1qaJmjLSn2nNUDofSA&callback=initMap">
+</script>
+</body>
+</html>
