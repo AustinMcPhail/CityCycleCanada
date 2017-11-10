@@ -1,10 +1,14 @@
 package city.cycle.canada;
 
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
 
 /**
  * Created by Nicolas on 11/4/2017.
@@ -18,6 +22,9 @@ public class homeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
+
+        //Webview
         googleMaps = findViewById(R.id.googleMaps);
 
         //Need to review which of these we actually need.
