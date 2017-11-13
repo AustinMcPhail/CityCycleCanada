@@ -18,6 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,8 +35,15 @@ import com.google.android.gms.tasks.Task;
 
 public class homeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+
+    private static int RC_SIGN_IN = 1;
+
+    //Google sign in
+    private GoogleSignInAccount account;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient mGoogleSignInClient;
+
     private WebView googleMaps;
-    int RC_SIGN_IN = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -90,11 +98,20 @@ public class homeScreen extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.testing_side_menu, menu);
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
 
-        //Google Sign in
+        TextView navHeaderTitle = findViewById(R.id.nav_header_title);
+        //TODO: We should move constant (especially strings) into their own resource files.
+        //TODO: Android may offer some kind of localization thing if we ever want to support other languages
+        navHeaderTitle.setText("City Cycle Canada");
+
+        //Logout and login initialization
+        findViewById(R.id.logout_button).setVisibility(View.INVISIBLE);
+
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.logout_button).setOnClickListener(this);
         return true;
     }
 
@@ -137,13 +154,20 @@ public class homeScreen extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //Google sign in code
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
+            case R.id.logout_button:
+                signOut();
+                break;
+            default:
+                //This should never happen
+                break;
         }
     }
     @Override
@@ -160,27 +184,34 @@ public class homeScreen extends AppCompatActivity
     }
 
     private void signIn(){
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    private void signOut(){
+        mGoogleSignInClient.signOut();
+        findViewById(R.id.logout_button).setVisibility(View.GONE);
+        findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+    }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            int x =5;
+            account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-            //updateUI(account);
+
+            // Signed in successfully, remove sign in button add sign-out button
+            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             System.out.println("signInResult:failed code=" + e.getStatusCode());
            // updateUI(null);
-            int y = 5;
         }
     }
+    //End of Google sign in code
 
 }
