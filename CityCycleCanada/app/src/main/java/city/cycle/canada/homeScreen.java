@@ -1,5 +1,6 @@
 package city.cycle.canada;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;//
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;//
 import android.support.v7.app.ActionBarDrawerToggle;//
 import android.support.v7.app.AppCompatActivity;//
 import android.support.v7.widget.Toolbar;//
+import android.util.Log;
 import android.view.View;//
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -17,7 +19,13 @@ import android.webkit.WebView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 
 /**
@@ -25,16 +33,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
  */
 
 public class homeScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
     private WebView googleMaps;
-
+    int RC_SIGN_IN = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        System.out.println("STUFF " + gso.getAccount() + "END STUFF");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,6 +90,11 @@ public class homeScreen extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.testing_side_menu, menu);
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
+
+        //Google Sign in
+        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
         return true;
     }
 
@@ -127,4 +137,50 @@ public class homeScreen extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                signIn();
+                break;
+            // ...
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void signIn(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            int x =5;
+
+            // Signed in successfully, show authenticated UI.
+            //updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            System.out.println("signInResult:failed code=" + e.getStatusCode());
+           // updateUI(null);
+            int y = 5;
+        }
+    }
+
 }
