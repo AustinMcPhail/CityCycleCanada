@@ -133,12 +133,16 @@ public class homeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-            // Handle the camera action
+            Intent intent = new Intent(homeScreen.this, StolenBike.class);
+            startActivity(intent);
         } else if (id == R.id.forum) {
+            Intent intent = new Intent(homeScreen.this, Forum.class);
+            startActivity(intent);
 
         } else {
-            //Shouldn't happen  
+            //Shouldn't happen
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".homeScreen"
+        <activity
+            android:name=".homeScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".StolenBike"
+            android:label="@string/title_activity_stolen_bike"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Forum"
+            android:label="@string/title_activity_forum"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
