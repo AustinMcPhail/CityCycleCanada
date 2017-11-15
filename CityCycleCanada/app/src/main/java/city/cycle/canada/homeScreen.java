@@ -3,15 +3,12 @@ package city.cycle.canada;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.design.widget.FloatingActionButton;//
 import android.support.design.widget.NavigationView;//
-import android.support.design.widget.Snackbar;//
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;//
 import android.support.v7.app.ActionBarDrawerToggle;//
 import android.support.v7.app.AppCompatActivity;//
 import android.support.v7.widget.Toolbar;//
-import android.util.Log;
 import android.view.View;//
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -97,11 +94,11 @@ public class homeScreen extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.testing_side_menu, menu);
+        getMenuInflater().inflate(R.menu.home_screen_settings_menu, menu);
 
         TextView navHeaderTitle = findViewById(R.id.nav_header_title);
-        //TODO: We should move constant (especially strings) into their own resource files.
-        //TODO: Android may offer some kind of localization thing if we ever want to support other languages
+        //TODO: We should move constant (especially strings) into their own resource files. Android may offer some kind of localization thing if we ever want to support other languages
+        //TODO: Also I'm not sure this is the corect function for this code. This functional is actually originally for the "3 dots" menu, not the drawer.
         navHeaderTitle.setText("City Cycle Canada");
 
         //Logout and login initialization
