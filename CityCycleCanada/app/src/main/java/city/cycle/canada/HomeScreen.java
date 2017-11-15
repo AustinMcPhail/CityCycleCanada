@@ -30,7 +30,7 @@ import com.google.android.gms.tasks.Task;
  * Created by Nicolas on 11/4/2017.
  */
 
-public class homeScreen extends AppCompatActivity
+public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private static int RC_SIGN_IN = 1;
@@ -135,10 +135,10 @@ public class homeScreen extends AppCompatActivity
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-            Intent intent = new Intent(homeScreen.this, StolenBike.class);
+            Intent intent = new Intent(HomeScreen.this, StolenBike.class);
             startActivity(intent);
         } else if (id == R.id.forum) {
-            Intent intent = new Intent(homeScreen.this, Forum.class);
+            Intent intent = new Intent(HomeScreen.this, Forum.class);
             startActivity(intent);
 
         } else {
