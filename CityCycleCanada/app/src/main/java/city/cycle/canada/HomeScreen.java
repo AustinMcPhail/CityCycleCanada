@@ -25,6 +25,10 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import src.city.cycle.canada.GoogleSignInService;
+
+import static src.city.cycle.canada.Constants.RC_SIGN_IN;
+
 
 /**
  * Created by Nicolas on 11/4/2017.
@@ -33,12 +37,11 @@ import com.google.android.gms.tasks.Task;
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
-    private static int RC_SIGN_IN = 1;
-
     //Google sign in
     private GoogleSignInAccount account;
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInService googleSignIn;
 
     private WebView googleMaps;
     @Override
@@ -61,7 +64,7 @@ public class HomeScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
+        googleSignIn = new GoogleSignInService(this,this);
 
         //Webview
         googleMaps = findViewById(R.id.googleMaps);
@@ -155,16 +158,17 @@ public class HomeScreen extends AppCompatActivity
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.sign_in_button:
-                signIn();
+                googleSignIn.signIn();
                 break;
             case R.id.logout_button:
-                signOut();
+                googleSignIn.signOut();
                 break;
             default:
                 //This should never happen
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -174,39 +178,8 @@ public class HomeScreen extends AppCompatActivity
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            googleSignIn.handleSignInResult(task);
         }
     }
-
-    private void signIn(){
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-    private void signOut(){
-        mGoogleSignInClient.signOut();
-        findViewById(R.id.logout_button).setVisibility(View.GONE);
-        findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            account = completedTask.getResult(ApiException.class);
-
-
-            // Signed in successfully, remove sign in button add sign-out button
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            System.out.println("signInResult:failed code=" + e.getStatusCode());
-           // updateUI(null);
-        }
-    }
-    //End of Google sign in code
 
 }
