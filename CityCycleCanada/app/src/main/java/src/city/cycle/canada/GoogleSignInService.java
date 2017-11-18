@@ -3,6 +3,7 @@ package src.city.cycle.canada;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -34,6 +35,11 @@ public class GoogleSignInService {
     public GoogleSignInService(Context inContext, Activity inActivity){
         context = inContext;
         activity = inActivity;
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
     }
 
     public void setAccount(GoogleSignInAccount inAccount){
@@ -57,17 +63,14 @@ public class GoogleSignInService {
     }
 
     public void signIn(){
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
     public void signOut(){
         mGoogleSignInClient.signOut();
-        activity.findViewById(R.id.logout_button).setVisibility(View.GONE);
-        activity.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+        hideSignOutButton();
+        showSignInButton();
     }
 
     public void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -76,8 +79,8 @@ public class GoogleSignInService {
 
 
             // Signed in successfully, remove sign in button add sign-out button
-            activity.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            activity.findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
+            hideSignInButton();
+            showSignOutButton();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -85,5 +88,43 @@ public class GoogleSignInService {
             // updateUI(null);
         }
     }
+
+    public void showSignInButton(){
+        NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+
+        header.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+    }
+    public void hideSignInButton(){
+        NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+
+        header.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+    }
+
+    public void showSignOutButton(){
+        NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+
+        header.findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
+    }
+    public void hideSignOutButton(){
+        NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+
+        header.findViewById(R.id.logout_button).setVisibility(View.GONE);
+    }
+
+    public void refreshGoogleSignInUI(GoogleSignInAccount inAccount){
+        if (inAccount != null){
+            hideSignInButton();
+            showSignOutButton();
+        }
+        else{
+            hideSignOutButton();
+            showSignInButton();
+        }
+    }
+
 
 }

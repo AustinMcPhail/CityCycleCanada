@@ -63,6 +63,10 @@ public class HomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View header = navigationView.getHeaderView(0);
+        header.findViewById(R.id.sign_in_button).setOnClickListener(this);
+        header.findViewById(R.id.logout_button).setOnClickListener(this);
+
 
         googleSignIn = new GoogleSignInService(this,this);
 
@@ -82,6 +86,16 @@ public class HomeScreen extends AppCompatActivity
 
         googleMaps.loadUrl("file:///android_asset/simplemap.html");
         googleMaps.setWebChromeClient(new WebChromeClient());
+
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        googleSignIn.refreshGoogleSignInUI(account);
+
+
     }
 
     @Override
@@ -105,13 +119,10 @@ public class HomeScreen extends AppCompatActivity
         navHeaderTitle.setText("City Cycle Canada");
 
         //Logout and login initialization
-        findViewById(R.id.logout_button).setVisibility(View.INVISIBLE);
 
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.logout_button).setOnClickListener(this);
         return true;
     }
 

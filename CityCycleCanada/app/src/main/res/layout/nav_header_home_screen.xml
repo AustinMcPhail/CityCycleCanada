@@ -36,7 +36,7 @@
         android:backgroundTint="@color/colorAccent"
         android:elevation="0dp"
         android:text="Log Out"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <GridLayout
         android:layout_width="match_parent"
