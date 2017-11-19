@@ -11,12 +11,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import src.city.cycle.canada.GoogleSignInService;
 
@@ -32,6 +43,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stolen_bike);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        findViewById(R.id.button2).setOnClickListener(this);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.stolen_bike_activity);
@@ -44,6 +56,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
+
         header.findViewById(R.id.sign_in_button).setOnClickListener(this);
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
@@ -88,6 +101,35 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case R.id.logout_button:
                 googleSignIn.signOut();
                 break;
+            case R.id.button2:
+                Log.d("button", "Button pressed!");
+                // START OF REQUEST
+                String url = "http://172.16.1.99:3000/hello";
+                final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
+                JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>(){
+                            @Override
+                            public void onResponse(JSONObject response){
+                                try{
+                                    String message = response.getString("message");
+                                    Log.d("GET", message);
+                                    rq.stop();
+                                } catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                Log.d("GET", "Something went wrong.");
+                                error.printStackTrace();
+                                rq.stop();
+                            }
+                });
+                rq.add(jr);
+                // END OF REQUEST
+
             default:
                 //This should never happen
                 break;
