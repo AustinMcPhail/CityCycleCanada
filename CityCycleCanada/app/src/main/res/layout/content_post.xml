@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="city.cycle.canada.Forum"
-    tools:showIn="@layout/activity_forum">
+    tools:context="city.cycle.canada.Post"
+    tools:showIn="@layout/activity_post">
 
-    <ListView
-        android:id="@+id/forum_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </android.support.constraint.ConstraintLayout>

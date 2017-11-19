@@ -28,7 +28,9 @@
         <activity
             android:name=".Forum"
             android:label="@string/title_activity_forum"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Post"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
