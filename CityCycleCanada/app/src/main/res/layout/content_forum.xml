@@ -8,4 +8,41 @@
     tools:context="city.cycle.canada.Forum"
     tools:showIn="@layout/activity_forum">
 
+    <!--<TableLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<TableRow-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/button3"-->
+                <!--style="@style/Widget.AppCompat.Button"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Post 1"-->
+                <!--android:visibility="visible" />-->
+        <!--</TableRow>-->
+
+        <!--<TableRow-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/button5"-->
+                <!--style="@style/Widget.AppCompat.Button"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Post 1"-->
+                <!--android:visibility="visible" />-->
+        <!--</TableRow>-->
+
+    <!--</TableLayout>-->
+    <ListView
+        android:id="@+id/forum_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

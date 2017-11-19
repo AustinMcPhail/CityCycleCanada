@@ -13,11 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
+import src.city.cycle.canada.ForumPost;
+import src.city.cycle.canada.ForumPostAdapter;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -49,6 +54,21 @@ public class Forum extends AppCompatActivity
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
         googleSignIn = new GoogleSignInService(this,this );
+
+        // Construct the data source
+        ArrayList<ForumPost> arrayOfPosts = new ArrayList<ForumPost>();
+        // Create the adapter to convert the array to views
+        ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.forum_list_view);
+        listView.setAdapter(adapter);
+
+        // Add item to adapter
+        ForumPost newPost = new ForumPost("My Post Title",1,1,1);
+        adapter.add(newPost);
+        // Or even append an entire new collection
+        // Fetching some data, data has now returned
+        // If data was JSON, convert to ArrayList of User objects.
     }
 
     @Override
