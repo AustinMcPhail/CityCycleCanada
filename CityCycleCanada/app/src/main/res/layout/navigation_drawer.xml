@@ -8,6 +8,9 @@
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
     app:headerLayout="@layout/nav_header_home_screen"
-    app:menu="@menu/activity_home_screen_drawer">
-
+    app:menu="@menu/activity_home_screen_drawer"
+    android:background="@color/colorAccent"
+    app:itemTextColor="#ffffff"
+    app:itemIconTint="#ffffff"
+>
 </android.support.design.widget.NavigationView>
