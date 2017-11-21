@@ -76,12 +76,12 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-            Intent intent = new Intent(StolenBike.this, StolenBike.class);
-            startActivity(intent);
         } else if (id == R.id.forum) {
             Intent intent = new Intent(StolenBike.this, Forum.class);
             startActivity(intent);
-
+            finish();
+        } else if (id == R.id.go_home) {
+            finish();
         } else {
             //Shouldn't happen
         }

@@ -24,6 +24,7 @@
         android:layout_marginBottom="65dp"
         android:layout_marginEnd="25dp"
         android:layout_gravity="bottom|end"
+        android:onClick="goPost"
         app:srcCompat="@drawable/newpost"
         style="?android:attr/borderlessButtonStyle"/>
 

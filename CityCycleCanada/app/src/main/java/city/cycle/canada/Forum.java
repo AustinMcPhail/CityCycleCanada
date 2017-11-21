@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -79,25 +80,27 @@ public class Forum extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
             Intent intent = new Intent(Forum.this, StolenBike.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.forum) {
-            Intent intent = new Intent(Forum.this, Forum.class);
-            startActivity(intent);
-
+        } else if (id == R.id.go_home) {
+            finish();
         } else {
             //Shouldn't happen
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     //Google sign in code
     @Override
@@ -126,5 +129,13 @@ public class Forum extends AppCompatActivity
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
+        if (requestCode == 2){
+            finish();
+        }
+    }
+
+    public void goPost(View view) {
+        Intent intent = new Intent(Forum.this, Post.class);
+        startActivityForResult(intent,2);
     }
 }

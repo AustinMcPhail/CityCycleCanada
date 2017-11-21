@@ -65,10 +65,11 @@ public class Post extends AppCompatActivity
         if (id == R.id.list_stolen_bike) {
             Intent intent = new Intent(Post.this, StolenBike.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.forum) {
-            Intent intent = new Intent(Post.this, Forum.class);
-            startActivity(intent);
-
+            finish();
+        } else if (id == R.id.go_home) {
+            finish();
         } else {
             //Shouldn't happen
         }
@@ -107,5 +108,14 @@ public class Post extends AppCompatActivity
         }
     }
 
+    protected void onStop() {
+        setResult(2);
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        setResult(2);
+        super.onDestroy();
+    }
 
 }
