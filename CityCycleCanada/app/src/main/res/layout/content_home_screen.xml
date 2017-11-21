@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_home_screen">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/quickForum"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:backgroundTint="@android:color/transparent"

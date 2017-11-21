@@ -116,7 +116,7 @@ public class HomeScreen extends AppCompatActivity
         TextView navHeaderTitle = findViewById(R.id.nav_header_title);
         //TODO: We should move constant (especially strings) into their own resource files. Android may offer some kind of localization thing if we ever want to support other languages
         //TODO: Also I'm not sure this is the corect function for this code. This functional is actually originally for the "3 dots" menu, not the drawer.
-        navHeaderTitle.setText("City Cycle Canada");
+
 
         //Logout and login initialization
 
