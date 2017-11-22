@@ -1,47 +1,39 @@
 package city.cycle.canada;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
-import java.util.ArrayList;
-
-import src.city.cycle.canada.ForumPost;
-import src.city.cycle.canada.ForumPostAdapter;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
 
-public class Forum extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class PostForm extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInService googleSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forum);
+        setContentView(R.layout.activity_post_form);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.post_form_activity);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -51,25 +43,11 @@ public class Forum extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
+
         header.findViewById(R.id.sign_in_button).setOnClickListener(this);
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
         googleSignIn = new GoogleSignInService(this,this );
-
-        // Construct the data source
-        ArrayList<ForumPost> arrayOfPosts = new ArrayList<ForumPost>();
-        // Create the adapter to convert the array to views
-        ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.forum_list_view);
-        listView.setAdapter(adapter);
-
-        // Add item to adapter
-        ForumPost newPost = new ForumPost("My Post Title",1,1,1);
-        adapter.add(newPost);
-        // Or even append an entire new collection
-        // Fetching some data, data has now returned
-        // If data was JSON, convert to ArrayList of User objects.
     }
 
     @Override
@@ -80,27 +58,25 @@ public class Forum extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-            Intent intent = new Intent(Forum.this, StolenBike.class);
+        } else if (id == R.id.forum) {
+            Intent intent = new Intent(PostForm.this, Forum.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.forum) {
         } else if (id == R.id.go_home) {
             finish();
         } else {
             //Shouldn't happen
         }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.stolen_bike_activity);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     //Google sign in code
     @Override
@@ -129,13 +105,5 @@ public class Forum extends AppCompatActivity
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
-        if (requestCode == 2){
-            finish();
-        }
-    }
-
-    public void goPost(View view) {
-        Intent intent = new Intent(Forum.this, PostForm.class);
-        startActivityForResult(intent,2);
     }
 }
