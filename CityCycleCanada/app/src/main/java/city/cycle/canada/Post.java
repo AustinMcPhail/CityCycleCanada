@@ -11,12 +11,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
+import src.city.cycle.canada.Comment;
+import src.city.cycle.canada.CommentAdapter;
 import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.GoogleSignInService;
 
@@ -63,6 +68,25 @@ public class Post extends AppCompatActivity
 
         TextView viewPostContent = findViewById(R.id.specific_post_content);
         viewPostContent.setText("Hardcoded post text! Also this post has postID=" + postID);
+
+
+        //Setup comments
+        // Construct the data source
+        ArrayList<Comment> arrayOfComments = new ArrayList<Comment>();
+        // Create the adapter to convert the array to views
+        CommentAdapter adapter = new CommentAdapter(this, arrayOfComments);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.comment_list_view);
+        listView.setAdapter(adapter);
+
+        //TODO: Request all comments from backend. Replace hardcoded comment
+        // Add item to adapter
+        Comment comment = new Comment("This is a hardcoded comment!", 1,1,1);
+        adapter.add(comment);
+        // Or even append an entire new collection
+        // Fetching some data, data has now returned
+        // If data was JSON, convert to ArrayList of User objects.
+
 
     }
 
