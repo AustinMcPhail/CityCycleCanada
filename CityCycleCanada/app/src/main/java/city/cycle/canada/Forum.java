@@ -64,8 +64,9 @@ public class Forum extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.forum_list_view);
         listView.setAdapter(adapter);
 
+        //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
-        ForumPost newPost = new ForumPost("My Post Title",1,1,1);
+        ForumPost newPost = new ForumPost("My Post Title",100,1,1);
         adapter.add(newPost);
         // Or even append an entire new collection
         // Fetching some data, data has now returned

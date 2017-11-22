@@ -5,10 +5,11 @@ package src.city.cycle.canada;
  */
 
 public class ForumPost {
-    String title;
-    int postID;
-    int userPostID;
-    int numOfComments;
+    public String title;
+    public int postID;
+    public int userPostID;
+    public int numOfComments;
+    public String postContents;
 
     public ForumPost(String title, int postID, int userPostID, int numOfComments){
         this.title = title;

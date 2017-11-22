@@ -50,8 +50,8 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
                 // Access the row position here to get the correct data item
                 ForumPost post = getItem(position);
                 // Do what you want here...
-                System.out.println("OnClick has Fired");
                 Intent intent = new Intent(context, Post.class);
+                intent.putExtra("postID", post.postID);
                 context.startActivity(intent);
             }
         });

@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -24,6 +26,7 @@ public class Post extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInService googleSignIn;
+    private ForumPost forumPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,19 @@ public class Post extends AppCompatActivity
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
         googleSignIn = new GoogleSignInService(this,this );
+
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+
+        int postID = extrasBundle.getInt("postID", -1);
+        //TODO: Write function to hit backend to request a post with ID postID
+        forumPost = new ForumPost("Hardcoded post title!",postID,1,0);
+
+        TextView viewPostTitle = findViewById(R.id.specific_post_title);
+        viewPostTitle.setText(forumPost.title);
+
+        TextView viewPostContent = findViewById(R.id.specific_post_content);
+        viewPostContent.setText("Hardcoded post text! Also this post has postID=" + postID);
 
     }
 
