@@ -63,11 +63,16 @@ public class PostForm extends AppCompatActivity
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-        } else if (id == R.id.forum) {
-            Intent intent = new Intent(PostForm.this, Forum.class);
+            Intent intent = new Intent(PostForm.this, StolenBike.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        } else if (id == R.id.forum) {
+            finish();
         } else if (id == R.id.go_home) {
+            Intent intent = new Intent(PostForm.this, HomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else {
             //Shouldn't happen
