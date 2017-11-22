@@ -149,12 +149,12 @@ public class Post extends AppCompatActivity
     }
 
     protected void onStop() {
-        setResult(2);
+        this.setResult(2);
         super.onStop();
     }
     @Override
     protected void onDestroy() {
-        setResult(2);
+        this.setResult(2);
         super.onDestroy();
     }
 

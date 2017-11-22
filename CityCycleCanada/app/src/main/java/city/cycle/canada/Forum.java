@@ -136,7 +136,8 @@ public class Forum extends AppCompatActivity
     }
 
     public void goPost(View view) {
+        int x = 0;
         Intent intent = new Intent(Forum.this, PostForm.class);
-        startActivityForResult(intent,2);
+        startActivityForResult(intent,x);
     }
 }
