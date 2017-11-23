@@ -35,7 +35,8 @@
         <activity
             android:name=".PostForm"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".StolenBikeForm"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

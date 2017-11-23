@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +30,12 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import src.city.cycle.canada.GoogleSignInService;
+import src.city.cycle.canada.StolenBikeReport;
+import src.city.cycle.canada.StolenBikeReportAdapter;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
 
@@ -43,7 +49,6 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stolen_bike);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        findViewById(R.id.button2).setOnClickListener(this);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.stolen_bike_activity);
@@ -61,6 +66,23 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
         googleSignIn = new GoogleSignInService(this,this );
+
+        // Construct the data source
+        ArrayList<StolenBikeReport> arrayOfStolenBikeReports = new ArrayList<StolenBikeReport>();
+        // Create the adapter to convert the array to views
+        StolenBikeReportAdapter adapter = new StolenBikeReportAdapter(this, arrayOfStolenBikeReports);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
+        listView.setAdapter(adapter);
+
+        //TODO: Request all posts from backend. Replace hardcoded post
+        // Add item to adapter
+        StolenBikeReport newStolenBikeReport = new StolenBikeReport(1,1,"1","123zfd", "Some address", "This is a hardcoded description field of a stolen bike report", new Date());
+        adapter.add(newStolenBikeReport);
+        // Or even append an entire new collection
+        // Fetching some data, data has now returned
+        // If data was JSON, convert to ArrayList of User objects.
+
     }
 
     @Override
@@ -101,34 +123,35 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case R.id.logout_button:
                 googleSignIn.signOut();
                 break;
-            case R.id.button2:
-                Log.d("button", "Button pressed!");
-                // START OF REQUEST
-                String url = "http://172.16.1.99:3000/hello";
-                final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
-                JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>(){
-                            @Override
-                            public void onResponse(JSONObject response){
-                                try{
-                                    String message = response.getString("message");
-                                    Log.d("GET", message);
-                                    rq.stop();
-                                } catch (JSONException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error){
-                                Log.d("GET", "Something went wrong.");
-                                error.printStackTrace();
-                                rq.stop();
-                            }
-                });
-                rq.add(jr);
-                // END OF REQUEST
+            //TODO: Austin I removed the button this code was attached to. Leaving it commented encase you need the code for some reason.
+//            case R.id.button2:
+//                Log.d("button", "Button pressed!");
+//                // START OF REQUEST
+//                String url = "http://172.16.1.99:3000/hello";
+//                final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
+//                JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET, url, null,
+//                        new Response.Listener<JSONObject>(){
+//                            @Override
+//                            public void onResponse(JSONObject response){
+//                                try{
+//                                    String message = response.getString("message");
+//                                    Log.d("GET", message);
+//                                    rq.stop();
+//                                } catch (JSONException e){
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error){
+//                                Log.d("GET", "Something went wrong.");
+//                                error.printStackTrace();
+//                                rq.stop();
+//                            }
+//                });
+//                rq.add(jr);
+//                // END OF REQUEST
 
             default:
                 //This should never happen
@@ -147,5 +170,11 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
+    }
+
+    public void createNewStolenBikeReport(View view){
+        int x = 0;
+        Intent intent = new Intent(StolenBike.this, StolenBikeForm.class);
+        startActivityForResult(intent,x);
     }
 }
