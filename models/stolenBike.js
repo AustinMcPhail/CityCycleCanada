@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
-var Pin = require('./pin.js');
+
+var Pin = {
+    latitude : Number,
+    longitude : Number
+}
 
 var stolenBikeSchema = new mongoose.Schema({
-    id : {type:Integer, unique:true, index:true, required:true},
     photoId: {type:String, unique:true},
     dateStolen: {type:Date},
     location: {type:Pin},
@@ -12,4 +15,4 @@ var stolenBikeSchema = new mongoose.Schema({
     created: {type:Date, default:Date.now}
 });
 
-mongoose.model('StolenBike', stolenBikeSchema);
+module.exports = mongoose.model('StolenBike', stolenBikeSchema);
