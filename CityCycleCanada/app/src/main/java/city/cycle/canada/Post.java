@@ -62,7 +62,7 @@ public class Post extends AppCompatActivity
 
         int postID = extrasBundle.getInt("postID", -1);
         //TODO: Write function to hit backend to request a post with ID postID
-        forumPost = new ForumPost("Hardcoded post title!",postID,1,0,1,"Jerry",new Date());
+        forumPost = new ForumPost("Hardcoded post title!","postID","1",0,1,"Jerry","Today");
 
         TextView viewPostTitle = findViewById(R.id.specific_post_title);
         viewPostTitle.setText(forumPost.title);
