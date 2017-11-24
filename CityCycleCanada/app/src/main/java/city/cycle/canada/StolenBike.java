@@ -1,6 +1,7 @@
 package city.cycle.canada;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,9 @@ import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import src.city.cycle.canada.GoogleSignInService;
 
@@ -68,6 +72,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         googleSignIn.refreshGoogleSignInUI(account);
+        googleSignIn.setAccount(account);
     }
 
     @Override
@@ -103,31 +108,50 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                 break;
             case R.id.button2:
                 Log.d("button", "Button pressed!");
+                if(googleSignIn.getAccount() != null)
+                    Log.d("button", googleSignIn.getAccount().getId());
                 // START OF REQUEST
-                String url = "http://172.16.1.99:3000/hello";
-                final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
-                JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>(){
+
+                new AsyncTask<Void, Void, Boolean>(){
+                    @Override
+                    protected Boolean doInBackground(Void... params){
+                        String url = "http://172.16.1.99:8080/addTestUser";
+                        final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
+                        StringRequest sr = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>(){
+                                    @Override
+                                    public void onResponse(String response){
+                                        String message = response;
+                                        Log.d("GET", message);
+                                        rq.stop();
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error){
+                                        Log.d("GET", "Something went wrong.");
+                                        error.printStackTrace();
+                                        rq.stop();
+                                    }
+                                })
+                        {
                             @Override
-                            public void onResponse(JSONObject response){
-                                try{
-                                    String message = response.getString("message");
-                                    Log.d("GET", message);
-                                    rq.stop();
-                                } catch (JSONException e){
-                                    e.printStackTrace();
-                                }
+                            protected Map<String, String> getParams(){
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("userId", "1234567891011121314151617181920");
+                                return params;
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error){
-                                Log.d("GET", "Something went wrong.");
-                                error.printStackTrace();
-                                rq.stop();
-                            }
-                });
-                rq.add(jr);
+                        };
+                        rq.add(sr);
+                        return true;
+                    }
+                    @Override
+                    public void onPostExecute(Boolean result){
+                        //Some message that indicates the connection was finished, or nothing.
+                    }
+                }.execute();
+
+
                 // END OF REQUEST
 
             default:

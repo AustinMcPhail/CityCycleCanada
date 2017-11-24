@@ -27,7 +27,6 @@ public class GoogleSignInService {
     private Context context;
     private Activity activity;
 
-
     private GoogleSignInAccount account;
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
