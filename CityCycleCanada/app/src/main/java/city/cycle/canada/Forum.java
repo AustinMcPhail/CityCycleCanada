@@ -1,6 +1,7 @@
 package city.cycle.canada;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,14 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,17 +72,59 @@ public class Forum extends AppCompatActivity
         // Construct the data source
         ArrayList<ForumPost> arrayOfPosts = new ArrayList<ForumPost>();
         // Create the adapter to convert the array to views
-        ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
+        final ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.forum_list_view);
         listView.setAdapter(adapter);
 
         //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
-        ForumPost newPost = new ForumPost("My Post Title",100,1,1,1,"Joe", new Date());
-        adapter.add(newPost);
-        newPost = new ForumPost("Another post title!",101,1,10,2444,"Bob", new Date());
-        adapter.add(newPost);
+
+        new AsyncTask<Void, Void, Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... params){
+                // START OF REQUEST
+                String url = "http://142.3.213.173:8080/forum";
+                final RequestQueue rq = Volley.newRequestQueue(Forum.this);
+                JsonArrayRequest jr = new JsonArrayRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONArray>(){
+                            @Override
+                            public void onResponse(JSONArray response){
+                                try{
+
+                                    ForumPost newPost;
+                                    for(int i=0; i< response.length(); i++){
+                                        JSONObject post = response.getJSONObject(i);
+
+                                        newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
+                                        adapter.add(newPost);
+                                    }
+
+                                    rq.stop();
+                                } catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                Log.d("GET", "Something went wrong.");
+                                error.printStackTrace();
+                                rq.stop();
+                            }
+                        });
+                rq.add(jr);
+                // END OF REQUEST
+                return true;
+            }
+            @Override
+            public void onPostExecute(Boolean result){
+                //Some message that indicates the connection was finished, or nothing.
+            }
+        }.execute();
+
+
         // Or even append an entire new collection
         // Fetching some data, data has now returned
         // If data was JSON, convert to ArrayList of User objects.
