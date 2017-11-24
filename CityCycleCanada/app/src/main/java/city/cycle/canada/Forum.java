@@ -68,6 +68,8 @@ public class Forum extends AppCompatActivity
         // Add item to adapter
         ForumPost newPost = new ForumPost("My Post Title",100,1,1);
         adapter.add(newPost);
+        newPost = new ForumPost("Another post title!",101,1,10);
+        adapter.add(newPost);
         // Or even append an entire new collection
         // Fetching some data, data has now returned
         // If data was JSON, convert to ArrayList of User objects.
