@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.ForumPostAdapter;
@@ -66,9 +67,9 @@ public class Forum extends AppCompatActivity
 
         //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
-        ForumPost newPost = new ForumPost("My Post Title",100,1,1);
+        ForumPost newPost = new ForumPost("My Post Title",100,1,1,1,"Joe", new Date());
         adapter.add(newPost);
-        newPost = new ForumPost("Another post title!",101,1,10);
+        newPost = new ForumPost("Another post title!",101,1,10,2444,"Bob", new Date());
         adapter.add(newPost);
         // Or even append an entire new collection
         // Fetching some data, data has now returned

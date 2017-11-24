@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import src.city.cycle.canada.Comment;
 import src.city.cycle.canada.CommentAdapter;
@@ -61,7 +62,7 @@ public class Post extends AppCompatActivity
 
         int postID = extrasBundle.getInt("postID", -1);
         //TODO: Write function to hit backend to request a post with ID postID
-        forumPost = new ForumPost("Hardcoded post title!",postID,1,0);
+        forumPost = new ForumPost("Hardcoded post title!",postID,1,0,1,"Jerry",new Date());
 
         TextView viewPostTitle = findViewById(R.id.specific_post_title);
         viewPostTitle.setText(forumPost.title);
@@ -81,7 +82,7 @@ public class Post extends AppCompatActivity
 
         //TODO: Request all comments from backend. Replace hardcoded comment
         // Add item to adapter
-        Comment comment = new Comment("This is a hardcoded comment!", 1,1,1);
+        Comment comment = new Comment("This is a hardcoded comment!", 1,1,1000);
         adapter.add(comment);
         // Or even append an entire new collection
         // Fetching some data, data has now returned

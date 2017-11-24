@@ -40,13 +40,13 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
 
         TextView textView = (TextView) convertView.findViewById(R.id.specific_post_title);
         // Populate the data into the template view using the data object
-        textView.setText("Post Title");
+        textView.setText(post.title);
         textView = (TextView) convertView.findViewById(R.id.specific_post_score);
-        textView.setText("69");
+        textView.setText(Integer.toString(post.postScore));
         textView = (TextView) convertView.findViewById(R.id.post_author);
-        textView.setText("Rupert");
+        textView.setText(post.userName);
         textView = (TextView) convertView.findViewById(R.id.post_date);
-        textView.setText("September 6 1840");
+        textView.setText(post.postDate.toString());
 
         return convertView;
     }
