@@ -78,7 +78,7 @@ public class StolenBikeForm extends AppCompatActivity
             //Shouldn't happen
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.post_form_activity);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.stolen_bike_form_activity);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
