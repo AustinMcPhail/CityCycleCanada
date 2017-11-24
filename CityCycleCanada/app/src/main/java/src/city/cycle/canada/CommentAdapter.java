@@ -33,10 +33,10 @@ public class CommentAdapter  extends ArrayAdapter<Comment> {
         Comment comment = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_listview_single_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_row_layout, parent, false);
         }
         // Lookup view for data population
-        TextView textView = (TextView) convertView.findViewById(R.id.comment);
+        TextView textView = (TextView) convertView.findViewById(R.id.comment_content);
         // Populate the data into the template view using the data object
         textView.setText(comment.commentContent);
 

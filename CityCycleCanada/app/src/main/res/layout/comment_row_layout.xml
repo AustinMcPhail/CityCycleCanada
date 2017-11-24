@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<comment_row xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -30,7 +26,7 @@
                     android:paddingBottom="10dp"
                     android:paddingEnd="10dp"
                     android:paddingLeft="10dp"
-                    android:text="Spans come in really handy when we want to apply styles to portions of text within the same TextView. We can change the text color, change the typeface, add an underline, etc, and apply these to only certain portions of the text. The full list of spans shows all the available options."
+                    android:text="Some sort of witty comment."
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -71,5 +67,3 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
-
-</comment_row>
