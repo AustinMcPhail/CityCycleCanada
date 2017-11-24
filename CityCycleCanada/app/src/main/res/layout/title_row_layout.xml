@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<title_row xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -60,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
             android:paddingEnd="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
@@ -74,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
             android:paddingEnd="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
@@ -84,4 +81,3 @@
     </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
-</title_row>

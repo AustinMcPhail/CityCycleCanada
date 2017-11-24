@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -34,28 +35,19 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
         ForumPost post = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.forum_listview_single_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.title_row_layout, parent, false);
         }
-        // Lookup view for data population
-        Button postView = (Button) convertView.findViewById(R.id.forum_post);
+
+        TextView textView = (TextView) convertView.findViewById(R.id.specific_post_title);
         // Populate the data into the template view using the data object
-        postView.setText(post.title);
+        textView.setText("Post Title");
+        textView = (TextView) convertView.findViewById(R.id.specific_post_score);
+        textView.setText("69");
+        textView = (TextView) convertView.findViewById(R.id.post_author);
+        textView.setText("Rupert");
+        textView = (TextView) convertView.findViewById(R.id.post_date);
+        textView.setText("September 6 1840");
 
-        postView.setTag(position);
-
-        postView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (Integer) view.getTag();
-                // Access the row position here to get the correct data item
-                ForumPost post = getItem(position);
-                // Do what you want here...
-                Intent intent = new Intent(context, Post.class);
-                intent.putExtra("postID", post.postID);
-                context.startActivity(intent);
-            }
-        });
-        // Return the completed view to render on screen
         return convertView;
     }
 }
