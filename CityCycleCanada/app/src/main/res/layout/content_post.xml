@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="city.cycle.canada.Post"
-    tools:showIn="@layout/activity_post">
+    tools:showIn="@layout/activity_post"
+    android:background="#000000">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,13 +100,13 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:paddingBottom="13dp"
             android:text="_____________" />
 
         <ListView
             android:id="@+id/comment_list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"/>
 
 
     </LinearLayout>
