@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,10 +31,11 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.ArrayList;
+import java.util.Date;
 import src.city.cycle.canada.GoogleSignInService;
+import src.city.cycle.canada.StolenBikeReport;
+import src.city.cycle.canada.StolenBikeReportAdapter;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
 
@@ -47,7 +49,6 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stolen_bike);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        findViewById(R.id.button2).setOnClickListener(this);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.stolen_bike_activity);
@@ -65,6 +66,23 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
         googleSignIn = new GoogleSignInService(this,this );
+
+        // Construct the data source
+        ArrayList<StolenBikeReport> arrayOfStolenBikeReports = new ArrayList<StolenBikeReport>();
+        // Create the adapter to convert the array to views
+        StolenBikeReportAdapter adapter = new StolenBikeReportAdapter(this, arrayOfStolenBikeReports);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
+        listView.setAdapter(adapter);
+
+        //TODO: Request all posts from backend. Replace hardcoded post
+        // Add item to adapter
+        StolenBikeReport newStolenBikeReport = new StolenBikeReport(1,1,"1","123zfd", "Some address", "This is a hardcoded description field of a stolen bike report", new Date());
+        adapter.add(newStolenBikeReport);
+        // Or even append an entire new collection
+        // Fetching some data, data has now returned
+        // If data was JSON, convert to ArrayList of User objects.
+
     }
 
     @Override
@@ -81,12 +99,12 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
-            Intent intent = new Intent(StolenBike.this, StolenBike.class);
-            startActivity(intent);
         } else if (id == R.id.forum) {
             Intent intent = new Intent(StolenBike.this, Forum.class);
             startActivity(intent);
-
+            finish();
+        } else if (id == R.id.go_home) {
+            finish();
         } else {
             //Shouldn't happen
         }
@@ -106,54 +124,53 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case R.id.logout_button:
                 googleSignIn.signOut();
                 break;
-            case R.id.button2:
-                Log.d("button", "Button pressed!");
-                if(googleSignIn.getAccount() != null)
-                    Log.d("button", googleSignIn.getAccount().getId());
-                // START OF REQUEST
+//            case R.id.button2:
+//                Log.d("button", "Button pressed!");
+//                if(googleSignIn.getAccount() != null)
+//                    Log.d("button", googleSignIn.getAccount().getId());
+//                // START OF REQUEST
 
-                new AsyncTask<Void, Void, Boolean>(){
-                    @Override
-                    protected Boolean doInBackground(Void... params){
-                        String url = "http://172.16.1.99:8080/addTestUser";
-                        final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
-                        StringRequest sr = new StringRequest(Request.Method.POST, url,
-                                new Response.Listener<String>(){
-                                    @Override
-                                    public void onResponse(String response){
-                                        String message = response;
-                                        Log.d("GET", message);
-                                        rq.stop();
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error){
-                                        Log.d("GET", "Something went wrong.");
-                                        error.printStackTrace();
-                                        rq.stop();
-                                    }
-                                })
-                        {
-                            @Override
-                            protected Map<String, String> getParams(){
-                                Map<String, String> params = new HashMap<String, String>();
-                                params.put("userId", "1234567891011121314151617181920");
-                                return params;
-                            }
-                        };
-                        rq.add(sr);
-                        return true;
-                    }
-                    @Override
-                    public void onPostExecute(Boolean result){
-                        //Some message that indicates the connection was finished, or nothing.
-                    }
-                }.execute();
-
-
-                // END OF REQUEST
-
+//                new AsyncTask<Void, Void, Boolean>(){
+//                    @Override
+//                    protected Boolean doInBackground(Void... params){
+//                        String url = "http://172.16.1.99:8080/addTestUser";
+//                        final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
+//                        StringRequest sr = new StringRequest(Request.Method.POST, url,
+//                                new Response.Listener<String>(){
+//                                    @Override
+//                                    public void onResponse(String response){
+//                                        String message = response;
+//                                        Log.d("GET", message);
+//                                        rq.stop();
+//                                    }
+//                                },
+//                                new Response.ErrorListener() {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error){
+//                                        Log.d("GET", "Something went wrong.");
+//                                        error.printStackTrace();
+//                                       rq.stop();
+//                                    }
+//                                })
+//                        {
+//                            @Override
+//                            protected Map<String, String> getParams(){
+//                                Map<String, String> params = new HashMap<String, String>();
+//                                params.put("userId", "1234567891011121314151617181920");
+//                                return params;
+//                            }
+//                        };
+//                        rq.add(sr);
+//                        return true;
+//                    }
+//                    @Override
+//                    public void onPostExecute(Boolean result){
+//                        //Some message that indicates the connection was finished, or nothing.
+//                    }
+//                }.execute();
+//
+//
+//                // END OF REQUEST
             default:
                 //This should never happen
                 break;
@@ -171,5 +188,11 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
+    }
+
+    public void createNewStolenBikeReport(View view){
+        int x = 0;
+        Intent intent = new Intent(StolenBike.this, StolenBikeForm.class);
+        startActivityForResult(intent,x);
     }
 }

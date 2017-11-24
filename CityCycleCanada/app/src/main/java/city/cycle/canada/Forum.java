@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.ForumPostAdapter;
@@ -63,8 +65,11 @@ public class Forum extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.forum_list_view);
         listView.setAdapter(adapter);
 
+        //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
-        ForumPost newPost = new ForumPost("My Post Title",1,1,1);
+        ForumPost newPost = new ForumPost("My Post Title",100,1,1,1,"Joe", new Date());
+        adapter.add(newPost);
+        newPost = new ForumPost("Another post title!",101,1,10,2444,"Bob", new Date());
         adapter.add(newPost);
         // Or even append an entire new collection
         // Fetching some data, data has now returned
@@ -79,25 +84,27 @@ public class Forum extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
 
         //Handle menu option actions
         if (id == R.id.list_stolen_bike) {
             Intent intent = new Intent(Forum.this, StolenBike.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.forum) {
-            Intent intent = new Intent(Forum.this, Forum.class);
-            startActivity(intent);
-
+        } else if (id == R.id.go_home) {
+            finish();
         } else {
             //Shouldn't happen
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.forum_activity);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     //Google sign in code
     @Override
@@ -126,5 +133,14 @@ public class Forum extends AppCompatActivity
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
+        if (requestCode == 2){
+            finish();
+        }
+    }
+
+    public void goPost(View view) {
+        int x = 0;
+        Intent intent = new Intent(Forum.this, PostForm.class);
+        startActivityForResult(intent,x);
     }
 }

@@ -8,10 +8,23 @@
     tools:context="city.cycle.canada.StolenBike"
     tools:showIn="@layout/activity_stolen_bike">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+    <ListView
+        android:id="@+id/stolen_bike_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ImageButton
+        android:id="@+id/newStolenBikeReport"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@android:color/transparent"
+        android:elevation="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="25dp"
+        android:layout_gravity="bottom|end"
+        android:onClick="createNewStolenBikeReport"
+        app:srcCompat="@drawable/newpost"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </android.support.design.widget.CoordinatorLayout>
