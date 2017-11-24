@@ -7,11 +7,12 @@ var Pin = {
 
 var stolenBikeSchema = new mongoose.Schema({
     photoId: {type:String, unique:true},
-    dateStolen: {type:Date},
-    location: {type:Pin},
+    dateStolen: {type:Date, required:true},
+    location: {type:Pin, required:true},
     serialNumber: {type:String},
-    description: {type:String},
-    userId: {type:String},
+    description: {type:String, required:true},
+    userId: {type:String, required:true},
+    userName : {type:String, required:true},
     created: {type:Date, default:Date.now}
 });
 
