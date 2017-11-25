@@ -9,17 +9,33 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import src.city.cycle.canada.Comment;
 import src.city.cycle.canada.CommentAdapter;
@@ -32,7 +48,6 @@ public class Post extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInService googleSignIn;
-    private ForumPost forumPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +75,66 @@ public class Post extends AppCompatActivity
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
 
-        int postID = extrasBundle.getInt("postID", -1);
+        String postId = extrasBundle.getString("postID", "");
+        final String postIdCopy = postId;
         //TODO: Write function to hit backend to request a post with ID postID
-        forumPost = new ForumPost("Hardcoded post title!","postID","1",0,1,"Jerry","Today");
 
-        TextView viewPostTitle = findViewById(R.id.specific_post_title);
-        viewPostTitle.setText(forumPost.title);
+        // START OF REQUEST
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("postId", postIdCopy);
 
-        TextView viewPostContent = findViewById(R.id.specific_post_content);
-        viewPostContent.setText("Hardcoded post text! Also this post has postID=" + postID);
+        JSONArray array = new JSONArray().put(new JSONObject(params));
+
+        String url = "http://204.83.96.200:3000/forum/post";
+        final RequestQueue rq = Volley.newRequestQueue(Post.this);
+        JsonArrayRequest jr = new JsonArrayRequest(Request.Method.POST, url, array,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        try{
+
+                            JSONObject post = response.getJSONObject(0);
+
+                            ForumPost forumPost;
+
+                            forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
+
+
+
+                            TextView viewPostTitle = findViewById(R.id.specific_post_title);
+                            viewPostTitle.setText(forumPost.title);
+
+                            TextView viewPostContent = findViewById(R.id.specific_post_content);
+                            viewPostContent.setText(forumPost.postContents);
+
+                            TextView viewPostScore = findViewById(R.id.specific_post_score);
+                            viewPostScore.setText(Integer.toString(forumPost.postScore));
+
+                            TextView viewPostAuthor = findViewById(R.id.post_author);
+                            viewPostAuthor.setText(forumPost.userName);
+
+                            TextView viewPostDate = findViewById(R.id.post_date);
+                            viewPostDate.setText(forumPost.postDate);
+
+
+                            rq.stop();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                            rq.stop();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq.stop();
+                    }
+                });
+
+        rq.add(jr);
+        // END OF REQUEST
 
 
         //Setup comments
@@ -167,7 +233,7 @@ public class Post extends AppCompatActivity
 
         int x = 0;
         Intent intent = new Intent(Post.this, CommentForm.class);
-        intent.putExtra("postID", forumPost.postID);
+        //intent.putExtra("postID", postId);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
