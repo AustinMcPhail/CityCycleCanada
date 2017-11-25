@@ -103,7 +103,7 @@ public class Forum extends AppCompatActivity
                                         JSONObject post = response.getJSONObject(i);
 
                                         newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
-                                        adapter.add(newPost);
+                                        adapter.insert(newPost, 0);
                                     }
 
                                     rq.stop();
