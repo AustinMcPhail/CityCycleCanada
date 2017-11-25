@@ -114,6 +114,9 @@ public class StolenBikeForm extends AppCompatActivity
     }
 
     public void submitStolenBikeReport(View vew){
-
+        int x = 0;
+        Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -1,7 +1,9 @@
 package city.cycle.canada;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -129,6 +132,7 @@ public class Forum extends AppCompatActivity
     protected void onStart(){
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        googleSignIn.setAccount(account);
         googleSignIn.refreshGoogleSignInUI(account);
     }
 
@@ -188,8 +192,37 @@ public class Forum extends AppCompatActivity
     }
 
     public void goPost(View view) {
-        int x = 0;
-        Intent intent = new Intent(Forum.this, PostForm.class);
-        startActivityForResult(intent,x);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (account == null){
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle("Sign in required")
+                    .setMessage("You must be signed in to create a new post")
+                    .setPositiveButton("Sign in", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            googleSignIn.signIn();
+                            int x = 0;
+                            Intent intent = new Intent(Forum.this, PostForm.class);
+                            startActivityForResult(intent,x);
+                        }
+                    })
+                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        else{
+            int x = 0;
+            Intent intent = new Intent(Forum.this, PostForm.class);
+            startActivityForResult(intent,x);
+        }
     }
 }

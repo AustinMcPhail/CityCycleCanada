@@ -20,29 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="City Cycle Canada"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:layout_gravity="center"/>
+            android:paddingTop="135dp">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_gravity="center"
-                app:srcCompat="@mipmap/cca" />
+                android:paddingLeft="10dp"
+                app:srcCompat="@drawable/nospoke_ccc_logo" />
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
