@@ -1,10 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/stolen_bike_report"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dip"
-    android:textSize="16dip"
-    android:textStyle="bold" >
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</Button>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/default_bike" />
+
+            <TextView
+                android:id="@+id/bike_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Pls halp, bike stoled. I gib money for info ;^;"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bike_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Username"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/bike_serial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="875h8-43efu-y4tfh"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/bike_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="January 8 1997"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
