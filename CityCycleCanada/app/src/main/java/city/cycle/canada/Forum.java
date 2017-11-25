@@ -206,9 +206,6 @@ public class Forum extends AppCompatActivity
                     .setPositiveButton("Sign in", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             googleSignIn.signIn();
-                            int x = 0;
-                            Intent intent = new Intent(Forum.this, PostForm.class);
-                            startActivityForResult(intent,x);
                         }
                     })
                     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
