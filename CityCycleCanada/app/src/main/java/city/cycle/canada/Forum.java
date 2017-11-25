@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,6 +33,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -80,11 +86,8 @@ public class Forum extends AppCompatActivity
         //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
 
-        new AsyncTask<Void, Void, Boolean>(){
-            @Override
-            protected Boolean doInBackground(Void... params){
                 // START OF REQUEST
-                String url = "http://142.3.213.173:8080/forum";
+                String url = "http://www.deltanis:3000/forum";
                 final RequestQueue rq = Volley.newRequestQueue(Forum.this);
                 JsonArrayRequest jr = new JsonArrayRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONArray>(){
@@ -116,14 +119,6 @@ public class Forum extends AppCompatActivity
                         });
                 rq.add(jr);
                 // END OF REQUEST
-                return true;
-            }
-            @Override
-            public void onPostExecute(Boolean result){
-                //Some message that indicates the connection was finished, or nothing.
-            }
-        }.execute();
-
 
         // Or even append an entire new collection
         // Fetching some data, data has now returned
