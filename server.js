@@ -22,6 +22,13 @@ mongoose.connect('mongodb://localhost/cityCycleCanada');
 
 //ROUTES
 
+//Test Route
+app.get('/hello', function(req, res){
+    res.send("Hello");
+});
+
+//Stolen Bike Routes
+
 
 //Stolen Bike Routes
 app.get('/stolenBikes', function(req, res){
