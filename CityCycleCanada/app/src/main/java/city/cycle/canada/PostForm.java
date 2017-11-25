@@ -148,7 +148,6 @@ public class PostForm extends AppCompatActivity
                     public void onResponse(JSONArray response){
                         try{
                             JSONObject success = response.getJSONObject(0);
-
                             Log.d("GET", success.getString("message"));
                             rq.stop();
                         } catch (JSONException e){
