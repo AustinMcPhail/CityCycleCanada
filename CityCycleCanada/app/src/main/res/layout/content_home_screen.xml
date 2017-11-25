@@ -28,7 +28,7 @@
                 android:layout_height="160dp"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
-                app:srcCompat="@drawable/ccc_logo" />
+                app:srcCompat="@drawable/nospoke_ccc_logo" />
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
