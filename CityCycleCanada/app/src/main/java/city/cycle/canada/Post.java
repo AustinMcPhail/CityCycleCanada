@@ -48,6 +48,7 @@ public class Post extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInService googleSignIn;
+    ForumPost forumPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,6 @@ public class Post extends AppCompatActivity
 
                             JSONObject post = response.getJSONObject(0);
 
-                            ForumPost forumPost;
 
                             forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
 
@@ -233,7 +233,7 @@ public class Post extends AppCompatActivity
 
         int x = 0;
         Intent intent = new Intent(Post.this, CommentForm.class);
-        //intent.putExtra("postID", postId);
+        intent.putExtra("postID", forumPost.postID);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
