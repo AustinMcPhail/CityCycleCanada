@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#121212"
         android:id="@+id/splashLayout">
 
 
@@ -28,7 +28,16 @@
                 android:layout_height="160dp"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
-                app:srcCompat="@drawable/nospoke_ccc_logo" />
+                app:srcCompat="@drawable/ccc_logo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorLight"
+                android:text="City Cycle Canada"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textColorHint="@color/colorLight"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
