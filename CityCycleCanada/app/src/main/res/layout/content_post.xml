@@ -111,4 +111,18 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/newPost"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@android:color/transparent"
+        android:elevation="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="25dp"
+        android:layout_gravity="bottom|end"
+        android:onClick="goComment"
+        app:srcCompat="@drawable/newpost"
+        style="?android:attr/borderlessButtonStyle"/>
 </android.support.design.widget.CoordinatorLayout>

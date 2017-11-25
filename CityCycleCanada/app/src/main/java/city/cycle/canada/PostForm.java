@@ -120,6 +120,7 @@ public class PostForm extends AppCompatActivity
         int postID = 1; //TODO CHANGEME
         String postContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac fringilla neque. Maecenas dapibus porttitor hendrerit. Morbi fringilla cursus dolor, bibendum laoreet odio commodo in. Pellentesque quis augue nec sem efficitur pulvinar sit amet ac quam. Suspendisse quis augue eros. In maximus, nulla non congue sollicitudin, neque mi semper urna, vel fringilla enim quam placerat sapien. Phasellus quis euismod risus, eu maximus erat. Mauris accumsan urna vel eros aliquam, nec dignissim nisi pharetra. Proin sit amet mi id metus commodo suscipit tempus nec eros. Donec condimentum efficitur lacinia. Sed enim lacus, mattis at ullamcorper a, feugiat quis ligula. Nam dapibus lorem sed risus imperdiet vehicula. Donec congue efficitur tristique. Nulla nulla augue, scelerisque tempor malesuada ut, ultricies vel urna. Sed sollicitudin dolor erat, at mollis elit aliquet non.";
         intent.putExtra("postID", postID);
-        startActivityForResult(intent,2);
+        startActivity(intent);
+        finish();
     }
 }
