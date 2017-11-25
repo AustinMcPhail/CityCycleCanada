@@ -47,6 +47,22 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
         textView.setText(post.userName);
         textView = (TextView) convertView.findViewById(R.id.post_date);
         textView.setText(post.postDate.toString());
+        textView = (TextView) convertView.findViewById(R.id.specific_post_title);
+        textView.setTag(position);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
+                // Access the row position here to get the correct data item
+                ForumPost forumPost = getItem(position);
+                // Do what you want here...
+                //TODO: Fix these when we have the activity to view a single report
+                Intent intent = new Intent(context, Post.class);
+                intent.putExtra("postID", forumPost.postID);
+                context.startActivity(intent);
+
+            }
+        });
 
         return convertView;
     }
