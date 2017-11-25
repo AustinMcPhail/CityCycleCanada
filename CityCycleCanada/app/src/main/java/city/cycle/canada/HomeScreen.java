@@ -47,7 +47,7 @@ public class HomeScreen extends AppCompatActivity
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInService googleSignIn;
-    private static int TIMEOUT = 3000;
+    private static int TIMEOUT = 4000;
 
     private WebView googleMaps;
     @Override
