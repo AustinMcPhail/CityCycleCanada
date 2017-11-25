@@ -9,11 +9,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.Task;
 
 import src.city.cycle.canada.GoogleSignInService;
@@ -24,6 +31,7 @@ public class StolenBikeForm extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private GoogleSignInService googleSignIn;
+    private static final String TAG = StolenBikeForm.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,31 @@ public class StolenBikeForm extends AppCompatActivity
 
 
         googleSignIn = new GoogleSignInService(this,this );
+
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setHint("Location");
+        autocompleteFragment.setBoundsBias(new LatLngBounds(
+                new LatLng(50.39659, -104.75566),
+                new LatLng(50.51911, -104.50381)));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                System.out.println(place.getLatLng());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
     }
 
     @Override
