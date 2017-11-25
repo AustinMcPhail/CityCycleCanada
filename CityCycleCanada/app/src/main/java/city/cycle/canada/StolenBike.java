@@ -124,53 +124,6 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case R.id.logout_button:
                 googleSignIn.signOut();
                 break;
-//            case R.id.button2:
-//                Log.d("button", "Button pressed!");
-//                if(googleSignIn.getAccount() != null)
-//                    Log.d("button", googleSignIn.getAccount().getId());
-//                // START OF REQUEST
-
-//                new AsyncTask<Void, Void, Boolean>(){
-//                    @Override
-//                    protected Boolean doInBackground(Void... params){
-//                        String url = "http://172.16.1.99:8080/addTestUser";
-//                        final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
-//                        StringRequest sr = new StringRequest(Request.Method.POST, url,
-//                                new Response.Listener<String>(){
-//                                    @Override
-//                                    public void onResponse(String response){
-//                                        String message = response;
-//                                        Log.d("GET", message);
-//                                        rq.stop();
-//                                    }
-//                                },
-//                                new Response.ErrorListener() {
-//                                    @Override
-//                                    public void onErrorResponse(VolleyError error){
-//                                        Log.d("GET", "Something went wrong.");
-//                                        error.printStackTrace();
-//                                       rq.stop();
-//                                    }
-//                                })
-//                        {
-//                            @Override
-//                            protected Map<String, String> getParams(){
-//                                Map<String, String> params = new HashMap<String, String>();
-//                                params.put("userId", "1234567891011121314151617181920");
-//                                return params;
-//                            }
-//                        };
-//                        rq.add(sr);
-//                        return true;
-//                    }
-//                    @Override
-//                    public void onPostExecute(Boolean result){
-//                        //Some message that indicates the connection was finished, or nothing.
-//                    }
-//                }.execute();
-//
-//
-//                // END OF REQUEST
             default:
                 //This should never happen
                 break;

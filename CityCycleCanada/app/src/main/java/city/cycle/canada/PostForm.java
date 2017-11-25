@@ -3,19 +3,35 @@ package city.cycle.canada;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -114,13 +130,58 @@ public class PostForm extends AppCompatActivity
 
     public void submitPost(View view){
         //TODO: Function that sends post to backend
+        TextInputEditText titleBox = findViewById(R.id.postTitle);
+        TextInputEditText contentBox = findViewById(R.id.postContent);
+
+        final String title = titleBox.getText().toString();
+        final String content = contentBox.getText().toString();
+        final String userId = googleSignIn.getAccount().getId();
+        final String userName = googleSignIn.getAccount().getDisplayName();
+
+        // START OF REQUEST
+        String url = "http://204.83.96.200:3000/forum/newPost";
+        final RequestQueue rq = Volley.newRequestQueue(PostForm.this);
+        JsonArrayRequest jr = new JsonArrayRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        try{
+                            JSONObject success = response.getJSONObject(0);
+                            rq.stop();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq.stop();
+                    }
+                })
+                {
+                    @Override
+                    protected Map<String, String> getParams(){
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("title", title);
+                        params.put("content", content);
+                        params.put("userId", userId);
+                        params.put("userName", userName);
+
+                        return params;
+                    }
+                };
+        rq.add(jr);
+        // END OF REQUEST
 
         //TODO: Get ID From backend to use when creating this new Intent
-        Intent intent = new Intent(PostForm.this, Post.class);
+
+        /*Intent intent = new Intent(PostForm.this, Post.class);
         int postID = 1; //TODO CHANGEME
-        String postContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac fringilla neque. Maecenas dapibus porttitor hendrerit. Morbi fringilla cursus dolor, bibendum laoreet odio commodo in. Pellentesque quis augue nec sem efficitur pulvinar sit amet ac quam. Suspendisse quis augue eros. In maximus, nulla non congue sollicitudin, neque mi semper urna, vel fringilla enim quam placerat sapien. Phasellus quis euismod risus, eu maximus erat. Mauris accumsan urna vel eros aliquam, nec dignissim nisi pharetra. Proin sit amet mi id metus commodo suscipit tempus nec eros. Donec condimentum efficitur lacinia. Sed enim lacus, mattis at ullamcorper a, feugiat quis ligula. Nam dapibus lorem sed risus imperdiet vehicula. Donec congue efficitur tristique. Nulla nulla augue, scelerisque tempor malesuada ut, ultricies vel urna. Sed sollicitudin dolor erat, at mollis elit aliquet non.";
         intent.putExtra("postID", postID);
         startActivity(intent);
-        finish();
+        finish();*/
     }
 }
