@@ -8,6 +8,45 @@
     tools:context="city.cycle.canada.HomeScreen"
     tools:showIn="@layout/app_bar_home_screen">
 
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="15dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/splashLayout">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="City Cycle Canada"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@mipmap/cca" />
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
     <ImageButton
         android:id="@+id/quickForum"
         android:layout_width="65dp"
@@ -26,7 +65,8 @@
     <WebView
         android:id="@+id/googleMaps"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:elevation="8dp"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
