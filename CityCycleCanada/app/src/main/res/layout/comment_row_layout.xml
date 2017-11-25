@@ -9,7 +9,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/colorAccent"
-            android:paddingBottom="15dp"
+            android:paddingBottom="10dp"
             android:paddingTop="15dp">
 
             <LinearLayout
@@ -27,9 +27,11 @@
                     android:paddingLeft="10dp"
                     android:text="Some sort of witty comment."
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    android:typeface="sans"/>
+                    android:typeface="sans"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -41,7 +43,7 @@
                     android:id="@+id/comment_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:paddingBottom="5dp"
                     android:paddingEnd="10dp"
                     android:paddingLeft="10dp"
@@ -49,13 +51,14 @@
                     android:text="Username"
                     android:textColor="#FFFFFF"
                     android:textSize="10sp"
-                    android:typeface="sans" />
+                    android:typeface="sans"
+                    android:layout_marginStart="10dp"/>
 
                 <TextView
                     android:id="@+id/comment_cred"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:paddingBottom="5dp"
                     android:paddingEnd="10dp"
                     android:paddingLeft="10dp"
@@ -63,6 +66,21 @@
                     android:text="Good"
                     android:textColor="#FFFFFF"
                     android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/upvote"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/downvote"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:layout_marginEnd="15dp"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
