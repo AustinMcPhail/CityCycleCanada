@@ -160,6 +160,10 @@ public class Post extends AppCompatActivity
     }
 
     public void goComment(View view){
+
+        //TODO: Get data from textviews
+        //TODO: Send comment to server
+
         int x = 0;
         Intent intent = new Intent(Post.this, CommentForm.class);
         intent.putExtra("postID", forumPost.postID);
