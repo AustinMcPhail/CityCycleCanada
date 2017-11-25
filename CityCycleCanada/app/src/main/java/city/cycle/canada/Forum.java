@@ -87,7 +87,7 @@ public class Forum extends AppCompatActivity
         // Add item to adapter
 
                 // START OF REQUEST
-                String url = "http://www.deltanis:3000/forum";
+                String url = "http://204.83.96.200:3000/forum";
                 final RequestQueue rq = Volley.newRequestQueue(Forum.this);
                 JsonArrayRequest jr = new JsonArrayRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONArray>(){
