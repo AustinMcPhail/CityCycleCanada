@@ -3,6 +3,8 @@ package city.cycle.canada;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;//
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;//
@@ -26,6 +28,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.concurrent.TimeUnit;
+
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -43,6 +47,7 @@ public class HomeScreen extends AppCompatActivity
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInService googleSignIn;
+    private static int TIMEOUT = 3000;
 
     private WebView googleMaps;
     @Override
@@ -85,9 +90,17 @@ public class HomeScreen extends AppCompatActivity
         webSettings.setSupportZoom(true);
         webSettings.setDefaultTextEncodingName("utf-8");
 
+
         googleMaps.loadUrl("file:///android_asset/simplemap.html");
         googleMaps.setWebChromeClient(new WebChromeClient());
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                    CoordinatorLayout c = (CoordinatorLayout) findViewById(R.id.splashLayout);
+                    c.setVisibility(View.GONE);
+            }
+        },TIMEOUT);
     }
 
     public void goForum(View view) {
