@@ -89,6 +89,12 @@ app.post('/forum/newPost', function(req, res){
         userName: userName
     };
     
+    var success = [
+        {
+            "message" : "Success!"
+        }
+    ]
+    
     Post.newPost(new_post, function(err, post){
         if(err){
             console.error(err);
@@ -96,20 +102,15 @@ app.post('/forum/newPost', function(req, res){
         }
         else{
             console.log('success');
-            res.send('success');
+            res.send(success);
         }
     })
 });
 
 app.post('/forum/post', function(req, res){
-    var postNum = req.body.postId;
+    var postId = req.body.postId;
     
-    var string1 = 'ObjectId("';
-    var string2 = '")';
-    
-    var postId = string1 + postNum + string2;
-    
-    Post.getPostById(postNum, function(err, post){
+    Post.getPostById(postId, function(err, post){
         if(err){
             throw err;
             res.sned('error');
@@ -134,6 +135,6 @@ app.post('/forum/post/comments', function(req, res){
 
 
 
-app.listen(8080, '0.0.0.0', function(){
-    console.log('App is listening on port 8080!')
+app.listen(3000, '0.0.0.0', function(){
+    console.log('App is listening on port 3000!')
 });
