@@ -47,6 +47,7 @@ public class StolenBikeForm extends AppCompatActivity
         header.findViewById(R.id.sign_in_button).setOnClickListener(this);
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
+
         googleSignIn = new GoogleSignInService(this,this );
     }
 

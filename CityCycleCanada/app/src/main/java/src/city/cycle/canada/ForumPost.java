@@ -8,16 +8,16 @@ import java.util.Date;
 
 public class ForumPost {
     public String title;
-    public int postID;
-    public int userPostID;
+    public String postID;
+    public String userPostID;
     public int numOfComments;
     public String postContents;
     public int postScore;
     public String userName;
 
-    Date postDate;
+    String postDate;
 
-    public ForumPost(String title, int postID, int userPostID, int numOfComments, int postScore, String userName, Date postDate){
+    public ForumPost(String title, String postID, String userPostID, int numOfComments, int postScore, String userName, String postDate){
         this.title = title;
         this.postID = postID;
         this.userPostID = userPostID;

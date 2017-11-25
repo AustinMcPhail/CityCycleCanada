@@ -12,7 +12,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="city.cycle.canada.StolenBike">
+        tools:context="city.cycle.canada.StolenBike"
+        android:background="#000000">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"

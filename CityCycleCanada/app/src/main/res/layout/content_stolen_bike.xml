@@ -24,7 +24,7 @@
         android:layout_marginEnd="25dp"
         android:layout_gravity="bottom|end"
         android:onClick="createNewStolenBikeReport"
-        app:srcCompat="@drawable/newpost"
+        app:srcCompat="@drawable/newreport"
         style="?android:attr/borderlessButtonStyle"/>
 
 </android.support.design.widget.CoordinatorLayout>
