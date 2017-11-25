@@ -66,21 +66,6 @@
                     android:text="Good"
                     android:textColor="#FFFFFF"
                     android:textSize="10sp" />
-
-                <Button
-                    android:id="@+id/upvote"
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
-
-                <Button
-                    android:id="@+id/downvote"
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="-"
-                    android:layout_marginEnd="15dp"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
