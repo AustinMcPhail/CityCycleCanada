@@ -15,7 +15,7 @@ public class ForumPost {
     public int postScore;
     public String userName;
 
-    String postDate;
+    public String postDate;
 
     public ForumPost(String title, String postID, String userPostID, int numOfComments, int postScore, String userName, String postDate){
         this.title = title;

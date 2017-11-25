@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -142,17 +143,16 @@ public class PostForm extends AppCompatActivity
         // START OF REQUEST
         String url = "http://204.83.96.200:3000/forum/newPost";
         final RequestQueue rq = Volley.newRequestQueue(PostForm.this);
-        JsonArrayRequest jr = new JsonArrayRequest(Request.Method.POST, url, null,
-                new Response.Listener<JSONArray>(){
+        StringRequest jr = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
                     @Override
-                    public void onResponse(JSONArray response){
-                        try{
-                            JSONObject success = response.getJSONObject(0);
-                            Log.d("GET", success.getString("message"));
-                            rq.stop();
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
+                    public void onResponse(String response){
+
+                        Intent intent = new Intent(PostForm.this, Post.class);
+                        intent.putExtra("postID", response);
+                        startActivity(intent);
+                        finish();
+                        rq.stop();
                     }
                 },
                 new Response.ErrorListener() {
@@ -180,10 +180,5 @@ public class PostForm extends AppCompatActivity
 
         //TODO: Get ID From backend to use when creating this new Intent
 
-        /*Intent intent = new Intent(PostForm.this, Post.class);
-        int postID = 1; //TODO CHANGEME
-        intent.putExtra("postID", postID);
-        startActivity(intent);
-        finish();*/
     }
 }

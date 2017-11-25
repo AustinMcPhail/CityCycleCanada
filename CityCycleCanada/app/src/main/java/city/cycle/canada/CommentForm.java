@@ -63,6 +63,7 @@ public class CommentForm extends AppCompatActivity
     protected void onStart(){
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        googleSignIn.setAccount(account);
         googleSignIn.refreshGoogleSignInUI(account);
     }
 
