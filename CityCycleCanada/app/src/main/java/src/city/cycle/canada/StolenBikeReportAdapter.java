@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import city.cycle.canada.R;
+import city.cycle.canada.StolenBike;
 
 /**
  * Created by nicolas on 23/11/17.
@@ -40,20 +41,6 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
         stolenBikeReportView.setText(stolenBikeReport.description);
 
         stolenBikeReportView.setTag(position);
-
-        stolenBikeReportView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (Integer) view.getTag();
-                // Access the row position here to get the correct data item
-                StolenBikeReport stolenBikeReport = getItem(position);
-                // Do what you want here...
-                //TODO: Fix these when we have the activity to view a single report
-                //Intent intent = new Intent(context, Post.class);
-                //intent.putExtra("postID", post.postID);
-                //context.startActivity(intent);
-            }
-        });
         // Return the completed view to render on screen
         return convertView;
     }
