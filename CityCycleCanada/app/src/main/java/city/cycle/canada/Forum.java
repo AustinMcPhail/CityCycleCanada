@@ -108,7 +108,7 @@ public class Forum extends AppCompatActivity
                     public void run() {
                         swiper.setRefreshing(false);
                     }
-                }, 1000);
+                }, 500);
             }
         });
         lView.setOnScrollListener(new AbsListView.OnScrollListener() {
