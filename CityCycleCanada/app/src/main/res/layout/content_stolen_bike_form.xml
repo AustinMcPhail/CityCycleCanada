@@ -8,7 +8,9 @@
     tools:context="city.cycle.canada.StolenBikeForm"
     tools:showIn="@layout/activity_stolen_bike_form"
     android:background="#000000">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +45,6 @@
                     android:hint="Serial Number" />
 
             </android.support.design.widget.TextInputLayout>
-a
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -64,6 +65,20 @@ a
                         />
 
 
+            <Button
+                android:id="@+id/photoUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="selectPhoto"
+                android:text="Upload a Photo"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/bikePhotoForm"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -79,5 +94,6 @@ a
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp" />
     </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
