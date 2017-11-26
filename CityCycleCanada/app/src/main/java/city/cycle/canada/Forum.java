@@ -135,6 +135,14 @@ public class Forum extends AppCompatActivity
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         googleSignIn.setAccount(account);
         googleSignIn.refreshGoogleSignInUI(account);
+
+        ArrayList<ForumPost> arrayOfPosts = new ArrayList<ForumPost>();
+        final ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
+        final ListView listView = (ListView) findViewById(R.id.forum_list_view);
+        listView.setAdapter(null);
+        listView.setAdapter(adapter);
+        getForumRequests(adapter);
+
     }
 
     @Override
