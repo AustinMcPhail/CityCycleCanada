@@ -140,45 +140,56 @@ public class PostForm extends AppCompatActivity
         final String userId = googleSignIn.getAccount().getId();
         final String userName = googleSignIn.getAccount().getDisplayName();
 
-        // START OF REQUEST
-        String url = "http://204.83.96.200:3000/forum/newPost";
-        final RequestQueue rq = Volley.newRequestQueue(PostForm.this);
-        StringRequest jr = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse(String response){
+        if (validPost(title, content)){
+            // START OF REQUEST
+            String url = "http://204.83.96.200:3000/forum/newPost";
+            final RequestQueue rq = Volley.newRequestQueue(PostForm.this);
+            StringRequest jr = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response){
 
-                        Intent intent = new Intent(PostForm.this, Post.class);
-                        intent.putExtra("postID", response);
-                        startActivity(intent);
-                        finish();
-                        rq.stop();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        Log.d("GET", "Something went wrong.");
-                        error.printStackTrace();
-                        rq.stop();
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams(){
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("title", title);
-                        params.put("content", content);
-                        params.put("userId", userId);
-                        params.put("userName", userName);
+                            Intent intent = new Intent(PostForm.this, Post.class);
+                            intent.putExtra("postID", response);
+                            startActivity(intent);
+                            finish();
+                            rq.stop();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            Log.d("GET", "Something went wrong.");
+                            error.printStackTrace();
+                            rq.stop();
+                        }
+                    })
+            {
+                @Override
+                protected Map<String, String> getParams(){
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("title", title);
+                    params.put("content", content);
+                    params.put("userId", userId);
+                    params.put("userName", userName);
 
-                        return params;
-                    }
-                };
-        rq.add(jr);
-        // END OF REQUEST
+                    return params;
+                }
+            };
+            rq.add(jr);
+            // END OF REQUEST
 
-        //TODO: Get ID From backend to use when creating this new Intent
+            //TODO: Get ID From backend to use when creating this new Intent
 
-    }
+        }
+        }
+        public boolean validPost(String title, String content){
+            if (!title.isEmpty() && !content.isEmpty()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
 }
