@@ -95,23 +95,24 @@ public class Forum extends AppCompatActivity
         getForumRequests(adapter);
 
         final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.forum_swipe);
-        final ListView lView = (ListView) findViewById(R.id.forum_list_view);
         swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swiper.setRefreshing(true);
-                lView.setAdapter(null);
-                lView.setAdapter(adapter);
-                getForumRequests(adapter);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        listView.setAdapter(null);
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                        getForumRequests(adapter);
                         swiper.setRefreshing(false);
                     }
                 }, 500);
             }
         });
-        lView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
             }
@@ -140,6 +141,8 @@ public class Forum extends AppCompatActivity
         final ForumPostAdapter adapter = new ForumPostAdapter(this, arrayOfPosts);
         final ListView listView = (ListView) findViewById(R.id.forum_list_view);
         listView.setAdapter(null);
+        adapter.clear();
+        adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
         getForumRequests(adapter);
 
