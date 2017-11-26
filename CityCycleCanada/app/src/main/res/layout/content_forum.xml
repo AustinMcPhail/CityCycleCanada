@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,11 +9,18 @@
     tools:context="city.cycle.canada.Forum"
     tools:showIn="@layout/activity_forum"
     android:background="#000000">
-
-    <ListView
-        android:id="@+id/forum_list_view"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/forum_swipe"
+        >
+        <ListView
+            android:id="@+id/forum_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ImageButton
         android:id="@+id/newPost"
@@ -30,3 +38,4 @@
         style="?android:attr/borderlessButtonStyle"/>
 
 </android.support.design.widget.CoordinatorLayout>
+
