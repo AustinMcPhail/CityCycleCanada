@@ -131,7 +131,7 @@ public class PostForm extends AppCompatActivity
     }
 
     public void submitPost(View view){
-        //TODO: Function that sends post to backend
+        //Function that sends post to backend
         TextInputEditText titleBox = findViewById(R.id.postTitle);
         TextInputEditText contentBox = findViewById(R.id.postContent);
 

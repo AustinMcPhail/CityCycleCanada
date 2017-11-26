@@ -75,7 +75,6 @@ public class Post extends AppCompatActivity
 
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-
         String postId = extrasBundle.getString("postID", "");
         final String postIdCopy = postId;
         //TODO: Write function to hit backend to request a post with ID postID
@@ -227,10 +226,6 @@ public class Post extends AppCompatActivity
     }
 
     public void goComment(View view){
-
-        //TODO: Get data from textviews
-        //TODO: Send comment to server
-
         int x = 0;
         Intent intent = new Intent(Post.this, CommentForm.class);
         intent.putExtra("postID", forumPost.postID);

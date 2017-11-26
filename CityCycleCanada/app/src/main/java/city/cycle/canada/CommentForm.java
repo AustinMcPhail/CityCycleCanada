@@ -3,19 +3,31 @@ package city.cycle.canada;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import src.city.cycle.canada.Comment;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -123,6 +135,56 @@ public class CommentForm extends AppCompatActivity
     }
 
     public void submitComment(View view){
+
+        //Function that sends post to backend
+        TextInputEditText contentBox = findViewById(R.id.post_comment);
+
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+        final String postId = extrasBundle.getString("postID", "");
+
+        final String content = contentBox.getText().toString();
+        final String userId = googleSignIn.getAccount().getId();
+        final String userName = googleSignIn.getAccount().getDisplayName();
+
+        // START OF REQUEST
+        String url = "http://204.83.96.200:3000/forum/newComment";
+        final RequestQueue rq = Volley.newRequestQueue(CommentForm.this);
+        StringRequest jr = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response){
+
+                        Intent intent = new Intent(CommentForm.this, Comment.class);
+                        intent.putExtra("postID", response);
+                        startActivity(intent);
+                        finish();
+                        rq.stop();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq.stop();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("postId", postId);
+                params.put("content", content);
+                params.put("userId", userId);
+                params.put("userName", userName);
+
+                return params;
+            }
+        };
+        rq.add(jr);
+        // END OF REQUEST
+
         int x = 0;
         Intent intent = new Intent(CommentForm.this, Post.class);
         intent.putExtra("postID", postID);
