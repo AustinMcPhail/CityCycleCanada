@@ -8,7 +8,7 @@
     tools:context="city.cycle.canada.StolenBikeForm"
     tools:showIn="@layout/activity_stolen_bike_form"
     android:background="#000000">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
@@ -76,8 +76,8 @@
                 android:layout_marginStart="10dp"
                 />
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:id="@+id/bikePhotoForm"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -94,6 +94,6 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp" />
     </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
