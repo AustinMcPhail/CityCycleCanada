@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,8 +32,11 @@ import java.io.IOException;
 
 import src.city.cycle.canada.GoogleSignInService;
 
+import static src.city.cycle.canada.Constants.MIME_BMP;
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
 import static src.city.cycle.canada.Constants.PICK_IMAGE_REQUEST;
+import static src.city.cycle.canada.Constants.VALID_PICTURE_MIME_TYPES;
+
 public class StolenBikeForm extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
@@ -153,7 +157,9 @@ public class StolenBikeForm extends AppCompatActivity
         else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
-
+            if (!validPictureMime(getContentResolver().getType(uri))){
+                return;
+            }
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 Bitmap bt=Bitmap.createScaledBitmap(bitmap, 150, 150, false);
@@ -167,19 +173,50 @@ public class StolenBikeForm extends AppCompatActivity
         }
     }
 
-    public void submitStolenBikeReport(View vew){
-        int x = 0;
-        Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
-        startActivity(intent);
-        finish();
+    public void submitStolenBikeReport(View view){
+        TextInputEditText description = findViewById(R.id.descriptionInput);
+        TextInputEditText sereialNumber = findViewById(R.id.serialNumberInput);
+        if (validDescription(description.getText().toString()) && validSerialNumber(sereialNumber.getText().toString())){
+            int x = 0;
+            Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void selectPhoto(View view){
         Intent intent = new Intent();
         // Show only images, no videos or anything else
-        intent.setType("image/*");
+        intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         // Always show the chooser (if there are multiple options available)
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    public boolean validPictureMime(String mimeType){
+        for (int i = 0; i < VALID_PICTURE_MIME_TYPES.length; i++){
+            if (VALID_PICTURE_MIME_TYPES[i].equals(mimeType)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validSerialNumber (String serialNumber){
+        if (serialNumber.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean validDescription (String description){
+        if (description.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
