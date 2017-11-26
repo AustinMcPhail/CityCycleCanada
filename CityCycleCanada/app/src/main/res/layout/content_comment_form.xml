@@ -41,7 +41,7 @@
                     android:id="@+id/post_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Serial Number" />
+                    android:hint="Comment" />
 
             </android.support.design.widget.TextInputLayout>
 
