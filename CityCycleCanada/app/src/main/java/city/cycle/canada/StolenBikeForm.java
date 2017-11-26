@@ -156,6 +156,7 @@ public class StolenBikeForm extends AppCompatActivity
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                Bitmap bt=Bitmap.createScaledBitmap(bitmap, 150, 150, false);
                 // Log.d(TAG, String.valueOf(bitmap));
 
                 ImageView imageView = (ImageView) findViewById(R.id.bikePhotoForm);
