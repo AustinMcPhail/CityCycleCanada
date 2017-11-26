@@ -89,9 +89,6 @@ public class Forum extends AppCompatActivity
         final ListView listView = (ListView) findViewById(R.id.forum_list_view);
         listView.setAdapter(adapter);
 
-        //TODO: Request all posts from backend. Replace hardcoded post
-        // Add item to adapter
-
         getForumRequests(adapter);
 
         final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.forum_swipe);
