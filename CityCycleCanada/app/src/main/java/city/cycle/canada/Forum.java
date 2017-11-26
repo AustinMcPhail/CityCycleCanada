@@ -245,7 +245,7 @@ public class Forum extends AppCompatActivity
                             for(int i=0; i< response.length(); i++){
                                 JSONObject post = response.getJSONObject(i);
 
-                                newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
+                                newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"),post.getString("content"));
                                 a.insert(newPost, 0);
                             }
 

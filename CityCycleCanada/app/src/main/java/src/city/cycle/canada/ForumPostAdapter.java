@@ -61,6 +61,7 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
                 //TODO: Fix these when we have the activity to view a single report
                 Intent intent = new Intent(context, Post.class);
                 intent.putExtra("postID", forumPost.postID);
+                intent.putExtra("postContents", forumPost.postContents);
                 context.startActivity(intent);
 
             }

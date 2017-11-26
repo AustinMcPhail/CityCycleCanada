@@ -97,7 +97,7 @@ public class Post extends AppCompatActivity
                             JSONObject post = response.getJSONObject(0);
 
 
-                            forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"));
+                            forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"),post.getString("content"));
 
 
 

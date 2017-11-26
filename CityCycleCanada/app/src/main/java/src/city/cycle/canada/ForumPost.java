@@ -17,7 +17,7 @@ public class ForumPost {
 
     public String postDate;
 
-    public ForumPost(String title, String postID, String userPostID, int numOfComments, int postScore, String userName, String postDate){
+    public ForumPost(String title, String postID, String userPostID, int numOfComments, int postScore, String userName, String postDate, String postInner){
         this.title = title;
         this.postID = postID;
         this.userPostID = userPostID;
@@ -25,5 +25,6 @@ public class ForumPost {
         this.postScore = postScore;
         this.userName = userName;
         this.postDate = postDate;
+        this.postContents = postInner;
     }
 }
