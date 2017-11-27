@@ -1,10 +1,12 @@
 package city.cycle.canada;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,7 +81,7 @@ public class Post extends AppCompatActivity
 
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        String postId = extrasBundle.getString("postID", "");
+        final String postId = extrasBundle.getString("postID", "");
         final String postIdCopy = postId;
         //TODO: Write function to hit backend to request a post with ID postID
 
@@ -153,13 +156,44 @@ public class Post extends AppCompatActivity
         // Construct the data source
         ArrayList<Comment> arrayOfComments = new ArrayList<Comment>();
         // Create the adapter to convert the array to views
-        CommentAdapter adapter = new CommentAdapter(this, arrayOfComments);
+        final CommentAdapter adapter = new CommentAdapter(this, arrayOfComments);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.comment_list_view);
+        final ListView listView = (ListView) findViewById(R.id.comment_list_view);
         listView.setAdapter(adapter);
 
         getCommentRequests(adapter, postId);
 
+        final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.comment_swipe);
+        swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swiper.setRefreshing(true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setAdapter(null);
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                        getCommentRequests(adapter, postId);
+                        swiper.setRefreshing(false);
+                    }
+                }, 500);
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0)
+                    swiper.setEnabled(true);
+                else
+                    swiper.setEnabled(false);
+            }
+        });
 
     }
 
