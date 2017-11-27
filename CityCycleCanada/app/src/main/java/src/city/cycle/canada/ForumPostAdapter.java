@@ -33,11 +33,13 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         ForumPost post = getItem(position);
-        if(post.userPostID.equals("cccmod")){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.title_row_layout_s, parent, false);
-        }
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.title_row_layout, parent, false);
+        }
+        if(post.userPostID.equals("cccmod")){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.title_row_layout_s, parent, false);
+        }else{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.title_row_layout, parent, false);
         }
 
