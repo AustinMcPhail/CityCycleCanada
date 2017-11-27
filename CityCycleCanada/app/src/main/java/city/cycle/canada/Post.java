@@ -254,7 +254,7 @@ public class Post extends AppCompatActivity
                             }
 
                             if(response.length() == 0){
-                                newComment = new Comment("There are no comments yet!", "", "");
+                                newComment = new Comment("              There are no comments yet!", "", "");
                                 a.insert(newComment,0);
                             }
 

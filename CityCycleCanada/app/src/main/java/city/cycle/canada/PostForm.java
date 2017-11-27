@@ -179,7 +179,7 @@ public class PostForm extends AppCompatActivity
             rq.add(jr);
             // END OF REQUEST
 
-            //TODO: Get ID From backend to use when creating this new Intent
+
 
         }
         }
