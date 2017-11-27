@@ -209,6 +209,19 @@ public class Post extends AppCompatActivity
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         googleSignIn.setAccount(account);
         googleSignIn.refreshGoogleSignInUI(account);
+
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+        final String postId = extrasBundle.getString("postID", "");
+        ArrayList<Comment> arrayOfComments = new ArrayList<Comment>();
+        final CommentAdapter adapter = new CommentAdapter(this, arrayOfComments);
+        final ListView listView = (ListView) findViewById(R.id.comment_list_view);
+        listView.setAdapter(adapter);
+        listView.setAdapter(null);
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+        getCommentRequests(adapter, postId);
     }
 
     @Override

@@ -21,6 +21,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:layout_marginStart="15dp"
                 app:srcCompat="@drawable/default_bike" />
 
             <TextView
@@ -33,15 +34,17 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"/>
 
         </LinearLayout>
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
 
             <TextView
                 android:id="@+id/bike_user"
@@ -56,11 +59,11 @@
                 android:textColor="#FFFFFF"/>
 
             <TextView
-                android:id="@+id/bike_serial"
+                android:id="@+id/bike_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="875h8-43efu-y4tfh"
+                android:text="306-550-5542"
                 android:paddingBottom="5dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
