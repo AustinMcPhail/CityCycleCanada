@@ -38,9 +38,11 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import src.city.cycle.canada.Comment;
 import src.city.cycle.canada.CommentAdapter;
@@ -102,15 +104,19 @@ public class Post extends AppCompatActivity
                             JSONObject post = response.getJSONObject(0);
 
                             String oldDate = post.getString("created");
-                            String newDate;
-                            SimpleDateFormat f = new SimpleDateFormat("hh:mm a E-M-yyyy");
+                            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                            f.setTimeZone(TimeZone.getTimeZone("UTC"));
                             Date date1 = new Date();
-                            try {
+                            try{
                                 date1 = f.parse(oldDate);
                             }catch (Exception e){
                                 e.printStackTrace();
+                                System.out.println("catchStuff");
                             }
-                            newDate = f.format(date1);
+
+                            SimpleDateFormat fo= new SimpleDateFormat("hh:mm a E-M-yyyy");
+                            fo.setTimeZone(TimeZone.getTimeZone(Calendar.getInstance().getTimeZone().getID()));
+                            String newDate = fo.format(date1);
 
                             forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), newDate,post.getString("content"));
 
