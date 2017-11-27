@@ -51,9 +51,9 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
         stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_user);
         stolenBikeReportView.setText(stolenBikeReport.userName);
         stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_serial);
-        stolenBikeReportView.setText(stolenBikeReport.serialNumber);
+        stolenBikeReportView.setText("S/N: " + stolenBikeReport.serialNumber);
         stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_contact);
-        stolenBikeReportView.setText(stolenBikeReport.contact);
+        stolenBikeReportView.setText("Phone#: " + stolenBikeReport.contact);
         stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_date);
         stolenBikeReportView.setText(stolenBikeReport.stolenDate);
 
