@@ -36,7 +36,7 @@ public class CommentForm extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInService googleSignIn;
-    private int postID;
+    private String postID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class CommentForm extends AppCompatActivity
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
 
-        int postID = extrasBundle.getInt("postID", -1);
+        String postID = extrasBundle.getString("postID", "");
         this.postID = postID;
 
     }
@@ -135,7 +135,6 @@ public class CommentForm extends AppCompatActivity
     }
 
     public void submitComment(View view){
-
         //Function that sends post to backend
         TextInputEditText contentBox = findViewById(R.id.post_comment);
 
@@ -148,17 +147,13 @@ public class CommentForm extends AppCompatActivity
         final String userName = googleSignIn.getAccount().getDisplayName();
 
         // START OF REQUEST
-        String url = "http://204.83.96.200:3000/forum/newComment";
+        String url = "http://204.83.96.200:3000/forum/post/newComment";
         final RequestQueue rq = Volley.newRequestQueue(CommentForm.this);
         StringRequest jr = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
-
-                        Intent intent = new Intent(CommentForm.this, Comment.class);
-                        intent.putExtra("postID", response);
-                        startActivity(intent);
-                        finish();
+                        Log.d("GET", response);
                         rq.stop();
                     }
                 },
@@ -187,7 +182,7 @@ public class CommentForm extends AppCompatActivity
 
         int x = 0;
         Intent intent = new Intent(CommentForm.this, Post.class);
-        intent.putExtra("postID", postID);
+        intent.putExtra("postID", postId);
         startActivityForResult(intent,x);
         finish();
     }

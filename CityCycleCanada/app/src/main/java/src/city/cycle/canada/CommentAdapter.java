@@ -40,6 +40,12 @@ public class CommentAdapter  extends ArrayAdapter<Comment> {
         // Populate the data into the template view using the data object
         textView.setText(comment.commentContent);
 
+        textView = (TextView) convertView.findViewById(R.id.comment_author);
+        textView.setText(comment.userName);
+
+        textView = (TextView) convertView.findViewById(R.id.comment_date);
+        textView.setText(comment.commentDate);
+
         textView.setTag(position);
         // Return the completed view to render on screen
         return convertView;

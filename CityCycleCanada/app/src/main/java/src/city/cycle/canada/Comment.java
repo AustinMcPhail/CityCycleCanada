@@ -7,15 +7,13 @@ package src.city.cycle.canada;
 public class Comment {
 
     public String commentContent;
-    public int commentID;
-    public int userCommentID;
-    public int score;
+    public String userName;
+    public String commentDate;
 
-    public Comment(String commentContent, int commentID, int userCommentID, int score){
+    public Comment(String commentContent, String userName, String commentDate){
         this.commentContent = commentContent;
-        this.commentID = commentID;
-        this.userCommentID = userCommentID;
-        this.score = score;
+        this.userName = userName;
+        this.commentDate = commentDate;
     }
 
 }

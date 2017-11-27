@@ -40,6 +40,7 @@ import java.util.Map;
 import src.city.cycle.canada.Comment;
 import src.city.cycle.canada.CommentAdapter;
 import src.city.cycle.canada.ForumPost;
+import src.city.cycle.canada.ForumPostAdapter;
 import src.city.cycle.canada.GoogleSignInService;
 
 import static src.city.cycle.canada.Constants.RC_SIGN_IN;
@@ -145,13 +146,7 @@ public class Post extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.comment_list_view);
         listView.setAdapter(adapter);
 
-        //TODO: Request all comments from backend. Replace hardcoded comment
-        // Add item to adapter
-        Comment comment = new Comment("This is a hardcoded comment!", 1,1,1000);
-        adapter.add(comment);
-        // Or even append an entire new collection
-        // Fetching some data, data has now returned
-        // If data was JSON, convert to ArrayList of User objects.
+        getCommentRequests(adapter, postId);
 
 
     }
@@ -223,6 +218,50 @@ public class Post extends AppCompatActivity
     protected void onDestroy() {
         this.setResult(2);
         super.onDestroy();
+    }
+
+    public void getCommentRequests(final CommentAdapter a, String postId){
+        // START OF REQUEST
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("postId", postId);
+
+        JSONArray array = new JSONArray().put(new JSONObject(params));
+        String url = "http://204.83.96.200:3000/forum/post/comments";
+        final RequestQueue rq = Volley.newRequestQueue(Post.this);
+        JsonArrayRequest jr = new JsonArrayRequest(Request.Method.POST, url, array,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        try{
+                            Comment newComment;
+                            for(int i=0; i< response.length(); i++){
+                                JSONObject comment = response.getJSONObject(i);
+                                newComment = new Comment(comment.getString("content"), comment.getString("userName"), comment.getString("created"));
+                                a.insert(newComment,0);
+                            }
+
+                            if(response.length() == 0){
+                                newComment = new Comment("There are no comments yet!", "", "");
+                                a.insert(newComment,0);
+                            }
+
+                            rq.stop();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq.stop();
+                    }
+                });
+        rq.add(jr);
+        // END OF REQUEST
     }
 
     public void goComment(View view){
