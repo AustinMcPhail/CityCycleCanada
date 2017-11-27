@@ -78,7 +78,8 @@
                     android:paddingEnd="10dp"
                     android:paddingTop="5dp"
                     android:text="Username"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="textEnd" />
 
                 <TextView
                     android:id="@+id/bike_date"
@@ -88,7 +89,8 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:text="January 8 1997"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="textEnd"/>
 
             </LinearLayout>
 
