@@ -17,11 +17,6 @@
         android:id="@+id/forum_swipe"
         >
 
-        <!--<ListView
-            android:id="@+id/forum_sticky"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
--->
         <ListView
             android:id="@+id/forum_list_view"
             android:layout_width="match_parent"

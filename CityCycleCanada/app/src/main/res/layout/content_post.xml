@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                         android:layout_weight="1.0"
                         android:paddingEnd="10dp"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
+                        android:paddingTop="5dp"
                         android:text="Post Title"
                         android:textColor="#FFFFFF"
                         android:textSize="25sp"
@@ -64,7 +64,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1.0"
                         android:paddingEnd="10dp"
-                        android:paddingTop="10dp"
+                        android:paddingTop="5dp"
                         android:text="8634"
                         android:textAlignment="textEnd"
                         android:textColor="#FFFFFF"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -148,10 +148,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/specific_post_title"
-            android:paddingBottom="10dp"
+            android:paddingBottom="0dp"
             android:paddingEnd="10dp"
             android:paddingLeft="10dp"
-            android:text="Spans come in really handy when we want to apply styles to portions of text within the same TextView. We can change the text color, change the typeface, add an underline, etc, and apply these to only certain portions of the text. The full list of spans shows all the available options."
+            android:text=""
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -164,14 +164,22 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:text="_____________" />
+            android:text="___________________________________" />
 
-        <ListView
-            android:id="@+id/comment_list_view"
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"/>
-
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/comment_swipe"
+            android:background="@color/colorLight"
+            >
+            <ListView
+                android:id="@+id/comment_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
