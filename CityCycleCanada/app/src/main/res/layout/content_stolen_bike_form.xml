@@ -31,20 +31,43 @@
             android:layout_marginStart="10dp"
             android:background="@color/colorLight">
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp">
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Serial Number"
-                    android:id="@+id/serialNumberInput"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/contactNumberInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone Number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/serialNumberInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Serial Number" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -89,11 +112,11 @@
             android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:onClick="submitStolenBikeReport"
-            android:text="Submit Report"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp" />
+            android:text="Submit Report" />
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

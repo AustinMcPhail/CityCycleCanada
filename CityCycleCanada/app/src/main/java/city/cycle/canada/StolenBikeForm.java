@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -78,7 +79,6 @@ public class StolenBikeForm extends AppCompatActivity
         header.findViewById(R.id.sign_in_button).setOnClickListener(this);
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
-
         googleSignIn = new GoogleSignInService(this,this );
 
 
@@ -95,7 +95,14 @@ public class StolenBikeForm extends AppCompatActivity
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-                System.out.println(place.getLatLng());
+                LatLng latlng = place.getLatLng();
+                String lat = Double.toString(latlng.latitude);
+                String lon = Double.toString(latlng.longitude);
+
+                TextInputEditText desc = findViewById(R.id.descriptionInput);
+                desc.setTag(R.id.TAG_ONLINE_ID1, lat);
+                desc.setTag(R.id.TAG_ONLINE_ID2, lon);
+
             }
 
             @Override
@@ -192,22 +199,16 @@ public class StolenBikeForm extends AppCompatActivity
 
         TextInputEditText desc = findViewById(R.id.descriptionInput);
         TextInputEditText snum = findViewById(R.id.serialNumberInput);
+        TextInputEditText pnum = findViewById(R.id.contactNumberInput);
+
+        final String latitude = desc.getTag(R.id.TAG_ONLINE_ID1).toString();
+        final String longitude = desc.getTag(R.id.TAG_ONLINE_ID2).toString();
         final String description = desc.getText().toString();
         final String serialNumber = snum.getText().toString();
+        final String contact = pnum.getText().toString();
 
         if (validDescription(description) && validSerialNumber(serialNumber)){
 
-            PlaceAutocompleteFragment address = (PlaceAutocompleteFragment)
-                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-            address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    Log.d("Order", "Entered Place Task");
-
-                    LatLng latLng = place.getLatLng();
-                    final String latitude = Double.toString(latLng.latitude);
-                    final String longitude = Double.toString(latLng.longitude);
                     final String userId = account.getId();
                     final String userName = account.getDisplayName();
 
@@ -244,6 +245,7 @@ public class StolenBikeForm extends AppCompatActivity
                             params.put("userName", userName);
                             params.put("latitude", latitude);
                             params.put("longitude", longitude);
+                            params.put("contact", contact);
 
                             return params;
                         }
@@ -255,13 +257,6 @@ public class StolenBikeForm extends AppCompatActivity
                     Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
                     startActivity(intent);
                     finish();
-                }
-
-                @Override
-                public void onError(Status status) {
-
-                }
-            });
 
         }
 

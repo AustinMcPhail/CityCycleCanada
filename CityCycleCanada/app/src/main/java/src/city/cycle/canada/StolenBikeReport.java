@@ -7,27 +7,27 @@ import city.cycle.canada.StolenBike;
 
 
 public class StolenBikeReport {
-    int stolenBikeReportID;
-    int pictureID;
+    String stolenBikeReportID;
+    //int pictureID;
 
-    String userID;
+    String userName;
     String serialNumber;
-    String location;
+    String latitude;
+    String longitude;
     String contact;
     String description;
 
     String stolenDate;
 
-    public StolenBikeReport(int stolenBikeReportID, int pictureID, String userID, String serialNumber, String location, String contact, String description, String stolenDate){
+    public StolenBikeReport(String stolenBikeReportID, String userName, String serialNumber, String latitude, String longitude,  String contact, String description, String stolenDate){
         this.stolenBikeReportID = stolenBikeReportID;
-        this.pictureID = pictureID;
-
-        this.userID = userID;
+        //this.pictureID = pictureID;
+        this.userName = userName;
         this.serialNumber = serialNumber;
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.contact = contact;
         this.description = description;
-
         this.stolenDate = stolenDate;
     }
 

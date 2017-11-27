@@ -88,7 +88,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         final ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
         listView.setAdapter(adapter);
 
-        //getBikeRequests(adapter);
+        getBikeRequests(adapter);
 
         final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.bike_swipe);
         swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -102,7 +102,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                         adapter.clear();
                         adapter.notifyDataSetChanged();
                         listView.setAdapter(adapter);
-                        //getBikeRequests(adapter);
+                        getBikeRequests(adapter);
                         swiper.setRefreshing(false);
                     }
                 }, 500);
@@ -230,12 +230,27 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                     public void onResponse(JSONArray response){
                         try{
                             int x = 0;
-                            ForumPost newPost;
+                            StolenBikeReport newReport;
                             for(int i=0; i< response.length(); i++) {
-                                JSONObject post = response.getJSONObject(i);
+                                JSONObject report = response.getJSONObject(i);
 
-                                //request code here
+                                String oldDate = report.getString("created");
+                                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                f.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                Date date1 = new Date();
+                                try{
+                                    date1 = f.parse(oldDate);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                    System.out.println("catchStuff");
+                                }
 
+                                SimpleDateFormat fo= new SimpleDateFormat("hh:mm a E-M-yyyy");
+                                fo.setTimeZone(TimeZone.getTimeZone(Calendar.getInstance().getTimeZone().getID()));
+                                String newDate = fo.format(date1);
+
+                                newReport = new StolenBikeReport(report.getString("_id"), report.getString("userName"), report.getString("serialNumber"), report.getString("latitude"), report.getString("longitude"), report.getString("contact"), report.getString("description"), newDate);
+                                a.add(newReport);
                             }
 
                             rq.stop();
