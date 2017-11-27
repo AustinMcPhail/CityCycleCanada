@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -73,10 +76,44 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         // Construct the data source
         ArrayList<StolenBikeReport> arrayOfStolenBikeReports = new ArrayList<StolenBikeReport>();
         // Create the adapter to convert the array to views
-        StolenBikeReportAdapter adapter = new StolenBikeReportAdapter(this, arrayOfStolenBikeReports);
+        final StolenBikeReportAdapter adapter = new StolenBikeReportAdapter(this, arrayOfStolenBikeReports);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
+        final ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
         listView.setAdapter(adapter);
+
+        //getBikeRequests(adapter);
+
+        final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.forum_swipe);
+        swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swiper.setRefreshing(true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setAdapter(null);
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                        //getBikeRequests(adapter);
+                        swiper.setRefreshing(false);
+                    }
+                }, 500);
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0)
+                    swiper.setEnabled(true);
+                else
+                    swiper.setEnabled(false);
+            }
+        });
 
         //TODO: Request all posts from backend. Replace hardcoded post
         // Add item to adapter
@@ -177,5 +214,13 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             Intent intent = new Intent(StolenBike.this, StolenBikeForm.class);
             startActivityForResult(intent,x);
         }
+    }
+
+    public void getBikeRequests(final StolenBikeReportAdapter adapter) {
+        // put request code here
+
+
+
+        // end request code
     }
 }

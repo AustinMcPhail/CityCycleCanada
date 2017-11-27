@@ -37,8 +37,13 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
         }
         // Lookup view for data population
         TextView stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_desc);
-        // Populate the data into the template view using the data object
         stolenBikeReportView.setText(stolenBikeReport.description);
+        /*stolenBikeReportView = (TextView) convertView.findViewById(R.id.specific_post_score);
+        stolenBikeReportView.setText(Integer.toString(post.postScore));
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.post_author);
+        stolenBikeReportView.setText(stolenBikeReport.userName);
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.post_date);
+        stolenBikeReportView.setText(post.postDate.toString());*/
 
         stolenBikeReportView.setTag(position);
         // Return the completed view to render on screen

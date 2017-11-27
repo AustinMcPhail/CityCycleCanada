@@ -16,10 +16,6 @@ import city.cycle.canada.Post;
 import city.cycle.canada.R;
 import city.cycle.canada.StolenBike;
 
-/**
- * Created by nicolas on 18/11/17.
- */
-
 public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
 
     private Context context;

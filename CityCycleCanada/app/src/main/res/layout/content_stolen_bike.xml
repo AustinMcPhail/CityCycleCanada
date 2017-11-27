@@ -8,10 +8,17 @@
     tools:context="city.cycle.canada.StolenBike"
     tools:showIn="@layout/activity_stolen_bike">
 
-    <ListView
-        android:id="@+id/stolen_bike_list_view"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bike_swipe">
+        <ListView
+            android:id="@+id/stolen_bike_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ImageButton
         android:id="@+id/newStolenBikeReport"
         android:layout_width="65dp"
