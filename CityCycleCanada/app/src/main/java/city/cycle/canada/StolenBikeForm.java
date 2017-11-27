@@ -16,8 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.Status;
@@ -27,8 +35,13 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.GeocodingResult;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import src.city.cycle.canada.GoogleSignInService;
 
@@ -174,14 +187,84 @@ public class StolenBikeForm extends AppCompatActivity
     }
 
     public void submitStolenBikeReport(View view){
-        TextInputEditText description = findViewById(R.id.descriptionInput);
-        TextInputEditText sereialNumber = findViewById(R.id.serialNumberInput);
-        if (validDescription(description.getText().toString()) && validSerialNumber(sereialNumber.getText().toString())){
-            int x = 0;
-            Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
-            startActivity(intent);
-            finish();
+
+        final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        TextInputEditText desc = findViewById(R.id.descriptionInput);
+        TextInputEditText snum = findViewById(R.id.serialNumberInput);
+        final String description = desc.getText().toString();
+        final String serialNumber = snum.getText().toString();
+
+        if (validDescription(description) && validSerialNumber(serialNumber)){
+
+            PlaceAutocompleteFragment address = (PlaceAutocompleteFragment)
+                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+            address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(Place place) {
+                    Log.d("Order", "Entered Place Task");
+
+                    LatLng latLng = place.getLatLng();
+                    final String latitude = Double.toString(latLng.latitude);
+                    final String longitude = Double.toString(latLng.longitude);
+                    final String userId = account.getId();
+                    final String userName = account.getDisplayName();
+
+                    // START OF REQUEST
+                    String url = "http://204.83.96.200:3000/stolenBikes/newReport";
+                    final RequestQueue rq = Volley.newRequestQueue(StolenBikeForm.this);
+                    StringRequest jr = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>(){
+                                @Override
+                                public void onResponse(String response){
+                                    Log.d("Order", "Entered Request Task");
+                                    Log.d("GET", response);
+                                    Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
+                                    startActivity(intent);
+                                    finish();
+                                    rq.stop();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error){
+                                    Log.d("GET", "Something went wrong.");
+                                    error.printStackTrace();
+                                    rq.stop();
+                                }
+                            })
+                    {
+                        @Override
+                        protected Map<String, String> getParams(){
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("serialNumber", serialNumber);
+                            params.put("description", description);
+                            params.put("userId", userId);
+                            params.put("userName", userName);
+                            params.put("latitude", latitude);
+                            params.put("longitude", longitude);
+
+                            return params;
+                        }
+                    };
+                    rq.add(jr);
+                    // END OF REQUEST
+
+                    int x = 0;
+                    Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onError(Status status) {
+
+                }
+            });
+
         }
+
     }
 
     public void selectPhoto(View view){
