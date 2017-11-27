@@ -140,7 +140,7 @@ public class PostForm extends AppCompatActivity
         final String userId = googleSignIn.getAccount().getId();
         final String userName = googleSignIn.getAccount().getDisplayName();
 
-        if (validPost(title, content)){
+        if (validPostTitle(title) && validPostContent(content)){
             // START OF REQUEST
             String url = "http://204.83.96.200:3000/forum/newPost";
             final RequestQueue rq = Volley.newRequestQueue(PostForm.this);
@@ -183,13 +183,20 @@ public class PostForm extends AppCompatActivity
 
         }
         }
-        public boolean validPost(String title, String content){
-            if (!title.isEmpty() && !content.isEmpty()){
-                return true;
-            }
-            else{
+        public boolean validPostTitle(String title){
+            if (title.isEmpty()){
                 return false;
             }
-
+            else{
+                return true;
+            }
+        }
+        public boolean validPostContent(String content){
+            if (content.isEmpty()){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
 }

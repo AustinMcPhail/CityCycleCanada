@@ -11,34 +11,22 @@
         android:background="@color/colorAccent"
         android:paddingBottom="15dp"
         android:paddingTop="15dp">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <TextView
+            android:id="@+id/bike_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="50"
+            android:paddingBottom="10dp"
+            android:text="Pls halp, bike stoled. I gib money for info ;^;"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
 
-            <ImageView
-                android:id="@+id/Bike_pic"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:layout_marginStart="15dp"
-                app:srcCompat="@drawable/default_bike" />
-
-            <TextView
-                android:id="@+id/bike_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Pls halp, bike stoled. I gib money for info ;^;"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:paddingLeft="10dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="15dp"/>
-
-        </LinearLayout>
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,27 +41,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bike_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:text="Username"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
                     android:id="@+id/bike_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingBottom="5dp"
                     android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="306-550-5542"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/bike_serial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="78543-dsfgh-21445"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
@@ -85,16 +70,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bike_serial"
+                    android:id="@+id/bike_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="78543-dsfgh-21445"
                     android:paddingBottom="5dp"
                     android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:textColor="#FFFFFF" />
+                    android:text="Username"
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="textEnd" />
 
                 <TextView
                     android:id="@+id/bike_date"
@@ -102,11 +87,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingBottom="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="January 8 1997"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="textEnd"/>
+
             </LinearLayout>
 
         </LinearLayout>
