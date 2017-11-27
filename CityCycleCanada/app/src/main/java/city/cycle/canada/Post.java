@@ -100,7 +100,7 @@ public class Post extends AppCompatActivity
 
                             String oldDate = post.getString("created");
                             String newDate;
-                            SimpleDateFormat f = new SimpleDateFormat("h:m a E-M-yyyy");
+                            SimpleDateFormat f = new SimpleDateFormat("hh:mm a E-M-yyyy");
                             Date date1 = new Date();
                             try {
                                 date1 = f.parse(oldDate);
