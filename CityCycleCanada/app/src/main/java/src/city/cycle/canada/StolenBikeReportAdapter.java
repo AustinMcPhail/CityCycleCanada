@@ -2,11 +2,13 @@ package src.city.cycle.canada;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,14 +38,24 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.stolen_bike_listview_single_item, parent, false);
         }
         // Lookup view for data population
+
+        /*
+        ImageView stolenBikeImage = (ImageView) convertView.findViewById(R.id.Bike_pic);
+        Resources res = getResources();
+        int rid = res.getIdentifier(generatedString,"drawable",getPackageName());
+        stolenBikeImage.setImaageResource(rid);
+        */
+
         TextView stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_desc);
         stolenBikeReportView.setText(stolenBikeReport.description);
-        /*stolenBikeReportView = (TextView) convertView.findViewById(R.id.specific_post_score);
-        stolenBikeReportView.setText(Integer.toString(post.postScore));
-        stolenBikeReportView = (TextView) convertView.findViewById(R.id.post_author);
-        stolenBikeReportView.setText(stolenBikeReport.userName);
-        stolenBikeReportView = (TextView) convertView.findViewById(R.id.post_date);
-        stolenBikeReportView.setText(post.postDate.toString());*/
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_user);
+        stolenBikeReportView.setText(stolenBikeReport.userID);
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_serial);
+        stolenBikeReportView.setText(stolenBikeReport.serialNumber);
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_contact);
+        stolenBikeReportView.setText(stolenBikeReport.contact);
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_date);
+        stolenBikeReportView.setText(stolenBikeReport.stolenDate);
 
         stolenBikeReportView.setTag(position);
         // Return the completed view to render on screen

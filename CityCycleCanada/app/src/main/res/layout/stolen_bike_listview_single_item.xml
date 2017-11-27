@@ -46,41 +46,69 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp">
 
-            <TextView
-                android:id="@+id/bike_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Username"
-                android:paddingBottom="5dp"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:textColor="#FFFFFF"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/bike_contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="306-550-5542"
-                android:paddingBottom="5dp"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:textColor="#FFFFFF"/>
+                <TextView
+                    android:id="@+id/bike_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="Username"
+                    android:textColor="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/bike_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/bike_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="306-550-5542"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="January 8 1997"
-                android:paddingBottom="5dp"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:textColor="#FFFFFF"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bike_serial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="78543-dsfgh-21445"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/bike_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="January 8 1997"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

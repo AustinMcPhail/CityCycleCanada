@@ -27,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -34,11 +35,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
+import src.city.cycle.canada.ForumPost;
 import src.city.cycle.canada.GoogleSignInService;
 import src.city.cycle.canada.StolenBikeReport;
 import src.city.cycle.canada.StolenBikeReportAdapter;
@@ -83,7 +90,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         //getBikeRequests(adapter);
 
-        final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.forum_swipe);
+        final SwipeRefreshLayout swiper = (SwipeRefreshLayout)findViewById(R.id.bike_swipe);
         swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -116,9 +123,6 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         });
 
         //TODO: Request all posts from backend. Replace hardcoded post
-        // Add item to adapter
-        StolenBikeReport newStolenBikeReport = new StolenBikeReport(1,1,"1","123zfd", "Some address", "This is a hardcoded description field of a stolen bike report", new Date());
-        adapter.add(newStolenBikeReport);
         // Or even append an entire new collection
         // Fetching some data, data has now returned
         // If data was JSON, convert to ArrayList of User objects.
@@ -216,11 +220,39 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         }
     }
 
-    public void getBikeRequests(final StolenBikeReportAdapter adapter) {
+    public void getBikeRequests(final StolenBikeReportAdapter a) {
         // put request code here
+        String url = "http://204.83.96.200:3000/stolenBikes";
+        final RequestQueue rq = Volley.newRequestQueue(StolenBike.this);
+        JsonArrayRequest jr = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        try{
+                            int x = 0;
+                            ForumPost newPost;
+                            for(int i=0; i< response.length(); i++) {
+                                JSONObject post = response.getJSONObject(i);
 
+                                //request code here
 
+                            }
 
+                            rq.stop();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq.stop();
+                    }
+                });
+        rq.add(jr);
         // end request code
     }
 }

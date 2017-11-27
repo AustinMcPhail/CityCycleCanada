@@ -68,8 +68,8 @@ public class ForumPostAdapter extends ArrayAdapter<ForumPost> {
             }
         });
 
-        Button upvoteButton = (Button) convertView.findViewById(R.id.upvote);
-        Button downvoteButton = (Button) convertView.findViewById(R.id.downvote);
+//        Button upvoteButton = (Button) convertView.findViewById(R.id.upvote);
+//        Button downvoteButton = (Button) convertView.findViewById(R.id.downvote);
 
 //        upvoteButton.setTag(position);
 //        upvoteButton.setOnClickListener(new View.OnClickListener() {
