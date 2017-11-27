@@ -141,7 +141,9 @@ public class HomeScreen extends AppCompatActivity
         //Logout and login initialization
 
         SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        if (signInButton != null){
+            signInButton.setSize(SignInButton.SIZE_STANDARD);
+        }
 
         return true;
     }

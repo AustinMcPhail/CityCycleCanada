@@ -97,7 +97,8 @@
             android:paddingTop="5dp"
             android:text="November 28 2017"
             android:textColor="#FFFFFF"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:textAlignment="textEnd"/>
 
     </LinearLayout>
     </LinearLayout>

@@ -44,6 +44,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -245,7 +249,20 @@ public class Forum extends AppCompatActivity
                             for(int i=0; i< response.length(); i++){
                                 JSONObject post = response.getJSONObject(i);
 
-                                newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"),post.getString("content"));
+                                String oldDate = post.getString("created");
+                                String newDate;
+                                SimpleDateFormat f = new SimpleDateFormat("h:m a E-M-yyyy");
+                                Date date1 = new Date();
+                                try {
+                                    date1 = f.parse(oldDate);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                newDate = f.format(date1);
+
+                                newPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), newDate,post.getString("content"));
+
+
                                 if (newPost.userPostID.equals("cccmod")) {
                                     a.insert(newPost, 0);
                                     x++;

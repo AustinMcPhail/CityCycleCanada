@@ -32,6 +32,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -96,8 +98,18 @@ public class Post extends AppCompatActivity
 
                             JSONObject post = response.getJSONObject(0);
 
+                            String oldDate = post.getString("created");
+                            String newDate;
+                            SimpleDateFormat f = new SimpleDateFormat("h:m a E-M-yyyy");
+                            Date date1 = new Date();
+                            try {
+                                date1 = f.parse(oldDate);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            newDate = f.format(date1);
 
-                            forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), post.getString("created"),post.getString("content"));
+                            forumPost = new ForumPost(post.getString("title"), post.getString("_id"), post.getString("userId"),1, post.getInt("score"), post.getString("userName"), newDate,post.getString("content"));
 
 
 
