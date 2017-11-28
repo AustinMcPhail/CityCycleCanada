@@ -205,7 +205,6 @@ public class StolenBikeForm extends AppCompatActivity
                             new Response.Listener<String>(){
                                 @Override
                                 public void onResponse(String response){
-                                    Log.d("Order", "Entered Request Task");
                                     Log.d("GET", response);
                                     Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
                                     startActivity(intent);
@@ -239,12 +238,6 @@ public class StolenBikeForm extends AppCompatActivity
                     };
                     rq.add(jr);
                     // END OF REQUEST
-
-                    int x = 0;
-                    Intent intent = new Intent(StolenBikeForm.this, StolenBike.class);
-                    startActivity(intent);
-                    finish();
-
         }
 
     }

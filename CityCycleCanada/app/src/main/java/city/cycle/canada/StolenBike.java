@@ -135,6 +135,18 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         googleSignIn.refreshGoogleSignInUI(account);
         googleSignIn.setAccount(account);
+
+        ArrayList<StolenBikeReport> arrayOfStolenBikeReports = new ArrayList<StolenBikeReport>();
+        // Create the adapter to convert the array to views
+        final StolenBikeReportAdapter adapter = new StolenBikeReportAdapter(this, arrayOfStolenBikeReports);
+        // Attach the adapter to a ListView
+        final ListView listView = (ListView) findViewById(R.id.stolen_bike_list_view);
+
+        listView.setAdapter(null);
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+        getBikeRequests(adapter);
     }
 
     @Override

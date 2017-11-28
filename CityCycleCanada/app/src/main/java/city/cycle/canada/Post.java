@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -62,6 +63,8 @@ public class Post extends AppCompatActivity
     ForumPost forumPost;
     boolean hasUpvoted = false;
     boolean hasDownvoted = false;
+    String POSTID;
+    String USERID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +95,11 @@ public class Post extends AppCompatActivity
         final String postIdCopy = postId;
         //TODO: Write function to hit backend to request a post with ID postID
 
+
         // START OF REQUEST
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("postId", postIdCopy);
-
         JSONArray array = new JSONArray().put(new JSONObject(params));
-
         String url = "http://204.83.96.200:3000/forum/post";
         final RequestQueue rq = Volley.newRequestQueue(Post.this);
         JsonArrayRequest jr = new JsonArrayRequest(Request.Method.POST, url, array,
@@ -218,6 +220,80 @@ public class Post extends AppCompatActivity
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
         final String postId = extrasBundle.getString("postID", "");
+        final String userId = account.getId();
+        USERID = userId;
+        POSTID = postId;
+        // START OF REQUEST FOR HASUPVOTED
+        String url1 = "http://204.83.96.200:3000/forum/post/hasUpvoted";
+        final RequestQueue rq1 = Volley.newRequestQueue(Post.this);
+        StringRequest jr1 = new StringRequest(Request.Method.POST, url1,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response){
+                        if(response.equals("false"))
+                            hasUpvoted = false;
+                        else
+                            hasUpvoted = true;
+                        rq1.stop();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq1.stop();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("postId", postId);
+                params.put("userId", userId);
+
+                return params;
+            }
+        };
+        rq1.add(jr1);
+        // END OF REQUEST
+
+        // START OF REQUEST FOR HASDOWNVOTED
+        String url2 = "http://204.83.96.200:3000/forum/post/hasDownvoted";
+        final RequestQueue rq2 = Volley.newRequestQueue(Post.this);
+        StringRequest jr2 = new StringRequest(Request.Method.POST, url2,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response){
+                        if(response.equals("false"))
+                            hasDownvoted = false;
+                        else
+                            hasDownvoted = true;
+                        rq2.stop();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("GET", "Something went wrong.");
+                        error.printStackTrace();
+                        rq2.stop();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("postId", postId);
+                params.put("userId", userId);
+
+                return params;
+            }
+        };
+        rq2.add(jr2);
+        // END OF REQUEST
+
+
         ArrayList<Comment> arrayOfComments = new ArrayList<Comment>();
         final CommentAdapter adapter = new CommentAdapter(this, arrayOfComments);
         final ListView listView = (ListView) findViewById(R.id.comment_list_view);
@@ -368,28 +444,105 @@ public class Post extends AppCompatActivity
         }
     }
 
-    public void upvoteComment(View view){
+    public void upvotePost(View view){
         if (hasUpvoted){
             //Do nothing
         }
         else{
+            if(hasDownvoted == false && hasUpvoted == false) {
+                TextView score = findViewById(R.id.specific_post_score);
+                Integer oldScore = Integer.parseInt(score.getText().toString());
+                Integer newScore = oldScore + 1;
+                score.setText(newScore.toString());
+            } else {
+                TextView score = findViewById(R.id.specific_post_score);
+                Integer oldScore = Integer.parseInt(score.getText().toString());
+                Integer newScore = oldScore + 2;
+                score.setText(newScore.toString());
+            }
             hasUpvoted = true;
             hasDownvoted = false;
-            //TODO Server code
+
+            String url = "http://204.83.96.200:3000/forum/post/upvote";
+            final RequestQueue rq = Volley.newRequestQueue(Post.this);
+            StringRequest jr = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>(){
+                        @Override
+                        public void onResponse(String response){
+                            rq.stop();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            Log.d("GET", "Something went wrong.");
+                            error.printStackTrace();
+                            rq.stop();
+                        }
+                    })
+            {
+                @Override
+                protected Map<String, String> getParams(){
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("postId", POSTID);
+                    params.put("userId", USERID);
+
+                    return params;
+                }
+            };
+            rq.add(jr);
+            // END OF REQUEST
         }
     }
 
-    public void downvoteComment(View view){
+    public void downvotePost(View view){
         if (hasDownvoted){
             //do nothing
         }
         else{
+            if(hasDownvoted == false && hasUpvoted == false) {
+                TextView score = findViewById(R.id.specific_post_score);
+                Integer oldScore = Integer.parseInt(score.getText().toString());
+                Integer newScore = oldScore - 1;
+                score.setText(newScore.toString());
+            } else {
+                TextView score = findViewById(R.id.specific_post_score);
+                Integer oldScore = Integer.parseInt(score.getText().toString());
+                Integer newScore = oldScore - 2;
+                score.setText(newScore.toString());
+            }
             hasDownvoted = true;
             hasUpvoted = false;
-            //TODO Server code
-        }
+                String url = "http://204.83.96.200:3000/forum/post/downvote";
+                final RequestQueue rq = Volley.newRequestQueue(Post.this);
+                StringRequest jr = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>(){
+                            @Override
+                            public void onResponse(String response){
+                                rq.stop();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                Log.d("GET", "Something went wrong.");
+                                error.printStackTrace();
+                                rq.stop();
+                            }
+                        })
+                {
+                    @Override
+                    protected Map<String, String> getParams(){
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("postId", POSTID);
+                        params.put("userId", USERID);
+
+                        return params;
+                    }
+                };
+                rq.add(jr);
+                // END OF REQUEST
+            }
     }
-
-
 
 }
