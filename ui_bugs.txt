@@ -1,3 +1,0 @@
--bike_report post to forum does not go to correct location
--forum post to bike_report does not go to correct location
--specific_forum post nav bar does not go to any correct location
