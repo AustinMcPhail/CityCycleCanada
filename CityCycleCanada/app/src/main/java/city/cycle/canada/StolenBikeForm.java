@@ -174,23 +174,6 @@ public class StolenBikeForm extends AppCompatActivity
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             googleSignIn.handleSignInResult(task);
         }
-        else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            Uri uri = data.getData();
-            if (!validPictureMime(getContentResolver().getType(uri))){
-                return;
-            }
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                Bitmap bt=Bitmap.createScaledBitmap(bitmap, 150, 150, false);
-                // Log.d(TAG, String.valueOf(bitmap));
-
-                ImageView imageView = (ImageView) findViewById(R.id.bikePhotoForm);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void submitStolenBikeReport(View view){
