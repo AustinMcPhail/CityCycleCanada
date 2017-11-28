@@ -1,19 +1,23 @@
 var mongoose = require('mongoose');
 
-var Pin = {
-    latitude : Number,
-    longitude : Number
-}
-
 var stolenBikeSchema = new mongoose.Schema({
-    photoId: {type:String, unique:true},
-    dateStolen: {type:Date, required:true},
-    location: {type:Pin, required:true},
-    serialNumber: {type:String},
+    serialNumber: {type:String, required: true},
     description: {type:String, required:true},
     userId: {type:String, required:true},
     userName : {type:String, required:true},
-    created: {type:Date, default:Date.now}
+    created: {type:Date, default:Date.now},
+	longitude: {type:String, required: true},
+	latitude: {type:String, required: true},
+	address: {type:String, required: true},
+	contact: {type:String, required: true}
 });
 
 module.exports = mongoose.model('StolenBike', stolenBikeSchema);
+
+module.exports.newReport = function(report, callback){
+    StolenBike.create(report, callback);
+}
+
+module.exports.getReports = function(callback, limit){
+    StolenBike.find(callback).limit(limit);
+}

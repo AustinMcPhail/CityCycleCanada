@@ -17,8 +17,9 @@
   },
   "homepage": "https://gitlab.com/nicolasrlewis/CS372#README",
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
+    "cors": "^2.8.4",
+    "express": "*",
     "mongoose": "*"
   }
 }

@@ -22,8 +22,11 @@ module.exports.getPostById = function(id, callback, limit){
     Post.find({_id: id}, {userId: 1, userName: 1, title: 1, content: 1, score: 1, created: 1}, callback).limit(limit);
 }
 
+module.exports.upvote = function(postId, callback) {
+	console.log('upvoting');
+	Post.update({_id: postId}, {$inc: {score: 1}}, callback);
+}
 
-module.exports.getUserPosts = function(id, callback, limit) {
-    console.log(id);
-    Post.find({userId: id}, {userId: 1, title: 1, userName: 1, content: 1, score: 1, created: 1}, callback).limit(limit);
+module.exports.downvote = function(postId, callback) {
+	Post.update({_id: postId}, {$inc: {score: -1}}, callback);
 }
