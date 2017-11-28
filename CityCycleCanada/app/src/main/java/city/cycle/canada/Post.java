@@ -446,7 +446,6 @@ public class Post extends AppCompatActivity
 
     public void upvotePost(View view){
         if (hasUpvoted){
-            //Do nothing
         }
         else{
             if(hasDownvoted == false && hasUpvoted == false) {
@@ -484,8 +483,8 @@ public class Post extends AppCompatActivity
                 @Override
                 protected Map<String, String> getParams(){
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("postId", POSTID);
-                    params.put("userId", USERID);
+                    params.put("postId", USERID);
+                    params.put("userId", POSTID);
 
                     return params;
                 }
@@ -497,7 +496,6 @@ public class Post extends AppCompatActivity
 
     public void downvotePost(View view){
         if (hasDownvoted){
-            //do nothing
         }
         else{
             if(hasDownvoted == false && hasUpvoted == false) {
@@ -534,8 +532,8 @@ public class Post extends AppCompatActivity
                     @Override
                     protected Map<String, String> getParams(){
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("postId", POSTID);
-                        params.put("userId", USERID);
+                        params.put("postId", USERID);
+                        params.put("userId", POSTID);
 
                         return params;
                     }
