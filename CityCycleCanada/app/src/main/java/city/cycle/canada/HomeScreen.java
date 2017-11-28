@@ -92,14 +92,6 @@ public class HomeScreen extends AppCompatActivity
 
         googleMaps.loadUrl("file:///android_asset/simplemap.html");
         googleMaps.setWebChromeClient(new WebChromeClient());
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                    CoordinatorLayout c = (CoordinatorLayout) findViewById(R.id.splashLayout);
-                    c.setVisibility(View.GONE);
-            }
-        },TIMEOUT);
     }
 
     public void goForum(View view) {

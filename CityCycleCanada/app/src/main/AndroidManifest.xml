@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -16,11 +16,6 @@
         <activity
             android:name=".HomeScreen"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StolenBike"
@@ -39,14 +34,25 @@
         <activity
             android:name=".StolenBikeForm"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CommentForm"
-                    android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".CommentForm"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD_uOD4p9uxc4gbb1qaJmjLSn2nNUDofSA"
-            />
+            android:value="AIzaSyD_uOD4p9uxc4gbb1qaJmjLSn2nNUDofSA" />
 
+        <activity
+            android:name=".Splash"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

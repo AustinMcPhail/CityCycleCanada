@@ -8,40 +8,6 @@
     tools:context="city.cycle.canada.HomeScreen"
     tools:showIn="@layout/app_bar_home_screen">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="15dp"
-        android:background="#4c91c2"
-        android:id="@+id/splashLayout">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="135dp">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                app:srcCompat="@drawable/ccc_logo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorLight"
-                android:text="City Cycle Canada"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:textColorHint="@color/colorLight"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
-
     <ImageButton
         android:id="@+id/quickForum"
         android:layout_width="65dp"
