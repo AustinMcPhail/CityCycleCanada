@@ -252,7 +252,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                                 fo.setTimeZone(TimeZone.getTimeZone(Calendar.getInstance().getTimeZone().getID()));
                                 String newDate = fo.format(date1);
 
-                                newReport = new StolenBikeReport(report.getString("_id"), report.getString("userName"), report.getString("serialNumber"), report.getString("latitude"), report.getString("longitude"), report.getString("contact"), report.getString("description"), newDate);
+                                newReport = new StolenBikeReport(report.getString("_id"), report.getString("userName"), report.getString("serialNumber"), report.getString("latitude"), report.getString("longitude"), report.getString("contact"), report.getString("description"), newDate, report.getString("address"));
                                 a.add(newReport);
                             }
 

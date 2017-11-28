@@ -98,10 +98,12 @@ public class StolenBikeForm extends AppCompatActivity
                 LatLng latlng = place.getLatLng();
                 String lat = Double.toString(latlng.latitude);
                 String lon = Double.toString(latlng.longitude);
+                String address = place.getName().toString();
 
                 TextInputEditText desc = findViewById(R.id.descriptionInput);
                 desc.setTag(R.id.TAG_ONLINE_ID1, lat);
                 desc.setTag(R.id.TAG_ONLINE_ID2, lon);
+                desc.setTag(R.id.TAG_ONLINE_ID3, address);
 
             }
 
@@ -186,6 +188,7 @@ public class StolenBikeForm extends AppCompatActivity
 
         final String latitude = desc.getTag(R.id.TAG_ONLINE_ID1).toString();
         final String longitude = desc.getTag(R.id.TAG_ONLINE_ID2).toString();
+        final String address = desc.getTag(R.id.TAG_ONLINE_ID3).toString();
         final String description = desc.getText().toString();
         final String serialNumber = snum.getText().toString();
         final String contact = pnum.getText().toString();
@@ -229,6 +232,7 @@ public class StolenBikeForm extends AppCompatActivity
                             params.put("latitude", latitude);
                             params.put("longitude", longitude);
                             params.put("contact", contact);
+                            params.put("address", address);
 
                             return params;
                         }

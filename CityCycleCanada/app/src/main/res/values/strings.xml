@@ -11,6 +11,7 @@
 
     <item name="TAG_ONLINE_ID1" type="id" />
     <item name="TAG_ONLINE_ID2" type="id" />
+    <item name="TAG_ONLINE_ID3" type="id" />
 
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>

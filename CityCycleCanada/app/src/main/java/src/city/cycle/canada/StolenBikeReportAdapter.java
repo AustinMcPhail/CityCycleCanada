@@ -43,7 +43,7 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
         ImageView stolenBikeImage = (ImageView) convertView.findViewById(R.id.Bike_pic);
         Resources res = getResources();
         int rid = res.getIdentifier(generatedString,"drawable",getPackageName());
-        stolenBikeImage.setImaageResource(rid);
+        stolenBikeImage.setImageResource(rid);
         */
 
         TextView stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_desc);
@@ -56,7 +56,8 @@ public class StolenBikeReportAdapter extends ArrayAdapter<StolenBikeReport> {
         stolenBikeReportView.setText("Phone#: " + stolenBikeReport.contact);
         stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_date);
         stolenBikeReportView.setText(stolenBikeReport.stolenDate);
-
+        stolenBikeReportView = (TextView) convertView.findViewById(R.id.bike_adr);
+        stolenBikeReportView.setText(stolenBikeReport.address);
         stolenBikeReportView.setTag(position);
         // Return the completed view to render on screen
         return convertView;

@@ -16,12 +16,12 @@ public class StolenBikeReport {
     String longitude;
     String contact;
     String description;
-
+    String address;
     String stolenDate;
 
-    public StolenBikeReport(String stolenBikeReportID, String userName, String serialNumber, String latitude, String longitude,  String contact, String description, String stolenDate){
+    public StolenBikeReport(String stolenBikeReportID, String userName, String serialNumber, String latitude, String longitude,  String contact, String description, String stolenDate, String address){
         this.stolenBikeReportID = stolenBikeReportID;
-        //this.pictureID = pictureID;
+        this.address = address;
         this.userName = userName;
         this.serialNumber = serialNumber;
         this.latitude = latitude;
