@@ -15,7 +15,7 @@ import android.view.View;
  * status bar and navigation/system bar) with user interaction.
  */
 public class Splash extends AppCompatActivity {
-    final static int TIMEOUT = 4000;
+    final static int TIMEOUT = 3000;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
