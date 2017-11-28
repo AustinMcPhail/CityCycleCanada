@@ -164,6 +164,9 @@ public class Forum extends AppCompatActivity
             finish();
         } else if (id == R.id.forum) {
         } else if (id == R.id.go_home) {
+            Intent intent = new Intent(Forum.this, HomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else {
             //Shouldn't happen
