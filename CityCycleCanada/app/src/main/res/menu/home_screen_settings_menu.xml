@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:onClick="refreshMap()"
-        android:title="Refresh Map">
+        android:title="Refresh Map"
+        android:id="@+id/refreshMapButt"
+        android:icon="@android:drawable/ic_popup_sync"
+        app:showAsAction="ifRoom"
+        >
     </item>
 </menu>

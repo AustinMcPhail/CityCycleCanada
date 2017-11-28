@@ -73,7 +73,6 @@ public class HomeScreen extends AppCompatActivity
         header.findViewById(R.id.sign_in_button).setOnClickListener(this);
         header.findViewById(R.id.logout_button).setOnClickListener(this);
 
-
         googleSignIn = new GoogleSignInService(this,this);
 
         //Webview
@@ -118,10 +117,6 @@ public class HomeScreen extends AppCompatActivity
         googleMaps.loadUrl("file:///android_asset/simplemap.html");
         googleMaps.setWebChromeClient(new WebChromeClient());
     }
-    public void refreshMap(){
-        googleMaps.loadUrl("file:///android_asset/simplemap.html");
-        googleMaps.setWebChromeClient(new WebChromeClient());
-    }
 
     @Override
     public void onBackPressed() {
@@ -155,7 +150,18 @@ public class HomeScreen extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
+        boolean garbage = false;
+        switch (item.getItemId()) {
+            case R.id.refreshMapButt:
+                googleMaps.loadUrl("file:///android_asset/simplemap.html");
+                googleMaps.setWebChromeClient(new WebChromeClient());
+                garbage = true;
+                break;
+                default:
+                    garbage = false;
+                    break;
+        }
+        return garbage;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -210,4 +216,8 @@ public class HomeScreen extends AppCompatActivity
         }
     }
 
+    public void refreshMap(View view){
+        googleMaps.loadUrl("file:///android_asset/simplemap.html");
+        googleMaps.setWebChromeClient(new WebChromeClient());
+    }
 }
