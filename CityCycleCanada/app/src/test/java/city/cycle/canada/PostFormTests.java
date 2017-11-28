@@ -21,22 +21,34 @@ public class PostFormTests {
 
     @Test
     public void validPostTitle_isTrue() throws Exception{
-        assertThat(pf.validPostTitle("A valid Post Title"), is(true));
+        String validPostTitle = "A valid Post Title";
+        assertThat(pf.validPostTitle(validPostTitle), is(true));
+        System.out.println("Corectness Test #1");
+        System.out.println("Input:" + validPostTitle);
     }
 
     @Test
     public void validPostTitle_isFalse() throws Exception{
-        assertThat(pf.validPostTitle(""), is(false));
+        String invalidPostTitle = "";
+        assertThat(pf.validPostTitle(invalidPostTitle), is(false));
+        System.out.println("Robustness Test #1");
+        System.out.println("Input:" + invalidPostTitle);
     }
 
     @Test
     public void validPostContent_isTrue() throws Exception{
-        assertThat(pf.validPostContent("A valid Post Content"), is(true));
+        String validPostContent = "A valid Post Content";
+        assertThat(pf.validPostContent(validPostContent), is(true));
+        System.out.println("Corectness Test #2");
+        System.out.println("Input:" + validPostContent);
     }
 
     @Test
     public void validPostContent_isFalse() throws Exception{
-        assertThat(pf.validPostTitle(""), is(false));
+        String invalidPostContent = "";
+        assertThat(pf.validPostTitle(invalidPostContent), is(false));
+        System.out.println("Robustness Test #2");
+        System.out.println("Input:" + invalidPostContent);
     }
 
 

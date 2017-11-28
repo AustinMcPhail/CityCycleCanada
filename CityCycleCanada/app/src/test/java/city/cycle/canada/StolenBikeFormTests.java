@@ -23,30 +23,48 @@ public class StolenBikeFormTests {
 
     @Test
     public void validPhoneNumber_isTrue() throws Exception {
-        assertThat(sbf.validPhoneNumber("306-999-3548"), is(true));
+        String validPhoneNumber = "306-999-3548";
+        assertThat(sbf.validPhoneNumber(validPhoneNumber), is(true));
+        System.out.println("Corectness Test #3");
+        System.out.println("Input:" + validPhoneNumber);
     }
 
     @Test
     public void validPhoneNumber_isFalse() throws Exception {
-        assertThat(sbf.validPhoneNumber(""), is(false));
+        String invalidPhoneNumber = "";
+        assertThat(sbf.validPhoneNumber(invalidPhoneNumber), is(false));
+        System.out.println("Robustness Test #3");
+        System.out.println("Input:" + invalidPhoneNumber);
     }
 
     @Test
     public void validStolenBikeDescription_isTrue() throws Exception{
-        assertThat(sbf.validDescription("A Description"), is(true));
+        String validDescription = "A Description";
+        assertThat(sbf.validDescription(validDescription), is(true));
+        System.out.println("Corectness Test #4");
+        System.out.println("Input:" + validDescription);
     }
     @Test
     public void validStolenBikeDescription_isFalse() throws Exception{
-        assertThat(sbf.validDescription(""), is(false));
+        String invalidDescription = "";
+        assertThat(sbf.validDescription(invalidDescription), is(false));
+        System.out.println("Robustness Test #4");
+        System.out.println("Input:" + invalidDescription);
     }
 
     @Test
     public void validStolenBikeSerialNumber_IsTrue() throws Exception{
+        String validSerialNumber = "123-446";
         assertThat(sbf.validSerialNumber("123-446"), is(true));
+        System.out.println("Corectness Test #5");
+        System.out.println("Input:" + validSerialNumber);
     }
     @Test
     public void validStolenBikeSerialNumber_IsFalse() throws Exception{
-        assertThat(sbf.validSerialNumber(""), is(false));
+        String invalidSerialNuber = "";
+        assertThat(sbf.validSerialNumber(invalidSerialNuber), is(false));
+        System.out.println("Corectness Test #5");
+        System.out.println("Input:" + invalidSerialNuber);
     }
 
 }
