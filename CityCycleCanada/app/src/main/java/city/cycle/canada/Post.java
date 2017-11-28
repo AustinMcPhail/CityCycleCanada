@@ -60,6 +60,8 @@ public class Post extends AppCompatActivity
 
     private GoogleSignInService googleSignIn;
     ForumPost forumPost;
+    boolean hasUpvoted = false;
+    boolean hasDownvoted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -363,6 +365,28 @@ public class Post extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }
+    }
+
+    public void upvoteComment(View view){
+        if (hasUpvoted){
+            //Do nothing
+        }
+        else{
+            hasUpvoted = true;
+            hasDownvoted = false;
+            //TODO Server code
+        }
+    }
+
+    public void downvoteComment(View view){
+        if (hasDownvoted){
+            //do nothing
+        }
+        else{
+            hasDownvoted = true;
+            hasUpvoted = false;
+            //TODO Server code
         }
     }
 

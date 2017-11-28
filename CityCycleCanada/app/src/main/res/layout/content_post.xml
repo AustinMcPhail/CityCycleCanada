@@ -132,7 +132,8 @@
                         android:layout_marginRight="1dp"
                         android:textColor="@color/colorPrimary"
                         android:background="#000000"
-                        android:textSize="20dp"/>
+                        android:textSize="20dp"
+                        android:onClick="upvotePost"/>
 
                     <Button
                         android:id="@+id/downvote"
@@ -143,7 +144,8 @@
                         android:textColor="@color/colorPrimary"
                         android:background="#000000"
                         android:text="▼"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        android:onClick="downvotePost"/>
 
                 </LinearLayout>
 
