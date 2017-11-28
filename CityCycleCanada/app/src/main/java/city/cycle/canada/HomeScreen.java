@@ -115,7 +115,12 @@ public class HomeScreen extends AppCompatActivity
         googleSignIn.setAccount(account);
         googleSignIn.refreshGoogleSignInUI(account);
 
-
+        googleMaps.loadUrl("file:///android_asset/simplemap.html");
+        googleMaps.setWebChromeClient(new WebChromeClient());
+    }
+    public void refreshMap(){
+        googleMaps.loadUrl("file:///android_asset/simplemap.html");
+        googleMaps.setWebChromeClient(new WebChromeClient());
     }
 
     @Override
