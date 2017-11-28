@@ -2,6 +2,7 @@ package city.cycle.canada;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -12,6 +13,8 @@ import static org.junit.Assert.assertThat;
  */
 
 public class StolenBikeFormTests {
+
+    @Mock()
     StolenBikeForm sbf;
     @Before
     public void setup(){
@@ -19,13 +22,13 @@ public class StolenBikeFormTests {
     }
 
     @Test
-    public void validPictureMime_isTrue() throws Exception {
-        assertThat(sbf.validPictureMime("image/png"), is(true));
+    public void validPhoneNumber_isTrue() throws Exception {
+        assertThat(sbf.validPhoneNumber("306-999-3548"), is(true));
     }
 
     @Test
-    public void validPictureMime_isFalse() throws Exception {
-        assertThat(sbf.validPictureMime("video/mp4"), is(false));
+    public void validPhoneNumber_isFalse() throws Exception {
+        assertThat(sbf.validPhoneNumber(""), is(false));
     }
 
     @Test

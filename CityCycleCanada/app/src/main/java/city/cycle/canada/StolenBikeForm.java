@@ -207,7 +207,7 @@ public class StolenBikeForm extends AppCompatActivity
         final String serialNumber = snum.getText().toString();
         final String contact = pnum.getText().toString();
 
-        if (validDescription(description) && validSerialNumber(serialNumber)){
+        if (validDescription(description) && validSerialNumber(serialNumber) && validPhoneNumber(contact)){
 
                     final String userId = account.getId();
                     final String userName = account.getDisplayName();
@@ -294,6 +294,15 @@ public class StolenBikeForm extends AppCompatActivity
             return false;
         }
         else {
+            return true;
+        }
+    }
+
+    public boolean validPhoneNumber (String phoneNumber){
+        if (phoneNumber.isEmpty()){
+            return false;
+        }
+        else{
             return true;
         }
     }
