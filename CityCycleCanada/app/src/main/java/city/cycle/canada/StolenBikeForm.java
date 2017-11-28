@@ -245,23 +245,7 @@ public class StolenBikeForm extends AppCompatActivity
 
     }
 
-    public void selectPhoto(View view){
-        Intent intent = new Intent();
-        // Show only images, no videos or anything else
-        intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        // Always show the chooser (if there are multiple options available)
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
 
-    public boolean validPictureMime(String mimeType){
-        for (int i = 0; i < VALID_PICTURE_MIME_TYPES.length; i++){
-            if (VALID_PICTURE_MIME_TYPES[i].equals(mimeType)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean validSerialNumber (String serialNumber){
         if (serialNumber.isEmpty()){
