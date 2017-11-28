@@ -148,6 +148,9 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             startActivity(intent);
             finish();
         } else if (id == R.id.go_home) {
+            Intent intent = new Intent(StolenBike.this, HomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else {
             //Shouldn't happen
