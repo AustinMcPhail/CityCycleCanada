@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+       #map {
+        height: 100%;
+       }
+       html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map img {
+        max-width: none;
+      }
+    </style>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<div id="map"></div>
+<script>
+    
+        function httpGetAsync(theUrl, callback)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() { 
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+    
+        
+
+
+    function initMap() {
+        var regina = {lat: 50.425499 , lng: -104.590724};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: regina,
+          mapTypeControl: false,
+          zoomControl: false
+        });
+          
+        var markers = [];
+    
+        function addMarker(location, infowindow) {
+            var marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+            markers.push(marker);
+            marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+        }
+    
+        httpGetAsync("http://204.83.96.200:3000/stolenBikesMap", function(response){
+           var array = JSON.parse(response);
+           for(var i = 0; i < array.length; i++){
+               var contentString = '<div id="content">'+
+                '<div id="bodyContent">'+
+                '<p><b>Owner:</b> ' + array[i].userName + '</p>'+
+                '<p><b>Serial Number:</b> ' + array[i].serialNumber + '</p>'+
+                '<p><b>Contact:</b> ' + array[i].contact + '</p> <hr>'+
+                '<p><b>Description:</b> ' + array[i].description + '</p>'+
+                '</div>'+
+                '</div>';
+               
+               var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+               });
+               
+               var latitude = parseFloat(array[i].latitude);
+               var longitude = parseFloat(array[i].longitude);
+               
+               addMarker({lat: latitude, lng: longitude}, infowindow);
+           }
+        })
+        
+
+        setMapOnAll(map);
+
+        var bikeLayer = new google.maps.BicyclingLayer();
+        bikeLayer.setMap(map);
+
+              //Bounds of regina
+        var strictBounds = new google.maps.LatLngBounds(
+             new google.maps.LatLng(50.39659, -104.75566),
+             new google.maps.LatLng(50.51911, -104.50381));
+
+        map.addListener('dragend', function() {
+            if (strictBounds.contains(map.getCenter())){
+                console.log(strictBounds)
+                console.log("in bounds")
+                return;
+            }
+
+            // We're out of bounds - Move the map back within the bounds
+            console.log("Out of Bounds")
+
+            var c = map.getCenter(),
+                x = c.lng(),
+                y = c.lat(),
+                maxX = strictBounds.getNorthEast().lng(),
+                maxY = strictBounds.getNorthEast().lat(),
+                minX = strictBounds.getSouthWest().lng(),
+                minY = strictBounds.getSouthWest().lat();
+
+            if (x < minX) x = minX;
+            if (x > maxX) x = maxX;
+            if (y < minY) y = minY;
+            if (y > maxY) y = maxY;
+            console.log(y);
+            console.log(x);
+
+            map.setCenter(new google.maps.LatLng(y, x));
+       });
+
+       //Min zoom level
+       var minZoomLevel = 14;
+       google.maps.event.addListener(map, 'zoom_changed', function() {
+            if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+       });
+
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+    }
+
+    </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_uOD4p9uxc4gbb1qaJmjLSn2nNUDofSA&callback=initMap">
+</script>
+</body>
+</html>

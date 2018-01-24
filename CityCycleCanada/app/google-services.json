@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1094411612060",
+    "project_id": "my-project-1505609355437"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094411612060:android:947225b7a150c550",
+        "android_client_info": {
+          "package_name": "city.cycle.canada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094411612060-88c5i3usfi51msfm4lp5udtoqkmemrno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "city.cycle.canada",
+            "certificate_hash": "4045c09e877a7439e7330901f699bc78a110a33e"
+          }
+        },
+        {
+          "client_id": "1094411612060-c4obrlad7m2aipgd5c4jb975nfrs7cnl.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1094411612060-6eduqp81erip0b4ue9n4j0ptiuvho8c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "city.cycle.canada",
+            "certificate_hash": "fd4a926451ab0ca77ecea1f803b62a12f8b5c599"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbcT_9o-NhnhRcwONNyms_5zFc1sTJ8qs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

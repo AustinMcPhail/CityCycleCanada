@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">City Cycle Canada</string>
+    <string name="title_activity_testing_side_menu">testingSideMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_stolen_bike">StolenBike</string>
+    <string name="title_activity_forum">Forum</string>
+
+    <item name="TAG_ONLINE_ID1" type="id" />
+    <item name="TAG_ONLINE_ID2" type="id" />
+    <item name="TAG_ONLINE_ID3" type="id" />
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
