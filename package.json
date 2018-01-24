@@ -1,0 +1,25 @@
+{
+  "name": "citycycleapi",
+  "version": "1.0.0",
+  "description": "Backend api for the CityCycle Android App.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/nicolasrlewis/CS372.git"
+  },
+  "author": "Austin McPhail",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/nicolasrlewis/CS372/issues"
+  },
+  "homepage": "https://gitlab.com/nicolasrlewis/CS372#README",
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.8.4",
+    "express": "*",
+    "mongoose": "*"
+  }
+}
